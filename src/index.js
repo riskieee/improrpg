@@ -15,4 +15,4 @@ plot01.addContentText(text02)
 
 // use story instance methods
 console.log(plot01.info);
-plot01.printStory()
+console.log(plot01.printStory);

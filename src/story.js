@@ -18,10 +18,14 @@ class Story {
       last played: ${this.lastEdit} ⏲
     `
   }
+  set info(newValue) {
+    throw new Error(
+      `A Story.info is only a getter. You can't override infos it with ${newValue}.`
+    );
+  }
 
   addContentText(text, person) {
-    this.content.push(text)
-    this.participants.push(person)
+    this.content.push([text, person])
   }
   _
   addContentDecision(option, person) {
@@ -33,9 +37,9 @@ class Story {
     this.participants.push(person)
   }
 
-  printStory() {
-    console.log(this.name)
-    this.content.forEach(text => console.table(text));
+  get printStory() {
+    return this.name + '\n' +
+      this.content.map((contentNode) => contentNode.map((contetItem) => contetItem))
   }
 }
 
