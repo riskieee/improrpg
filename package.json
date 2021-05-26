@@ -1,8 +1,8 @@
 {
   "name": "improrpg",
   "version": "1.0.0",
-  "description": "live multiplayer text based role-play adventure story notebook",
-  "main": "index.js",
+  "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
