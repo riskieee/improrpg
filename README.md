@@ -1,5 +1,5 @@
 # ImproRPG
-live multiplayer text based role-play adventure story notebook
+is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
 
 # LICENSE
 
