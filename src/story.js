@@ -1,3 +1,5 @@
+var colors = require('colors');
+
 // main Story class for improRPG
 
 class Story {
@@ -15,10 +17,10 @@ class Story {
   get info() {
 
     return `
-      STORY INFO
-      ----------------------------------
-      This is:     ${this.name}
-      about:       ${this.theme} ⛺
+### ${colors.bgBlue.black(' STORY INFO ')}
+----------------------------------------------
+      This is:     ${this.name.red}
+      about:       ${this.theme.rainbow } ⛺
       player:      ${this.participants.length}
       locations:   ${this.content.length}
       last played: ${this.lastEdit} ⏲
@@ -53,7 +55,8 @@ class Story {
 
   get printStory() {
 
-    return `Story: ${this.name} ${'\n'}
+    return `### ${'So far the Story of'.bold} ${this.name.red} ${'\n'}
+-----------------------------------------------
     .... here comes the Storycontent .... later ${'\n'}
     .... ${'\n'}`  // + this.content.map((contentNode) => typeof(contentNode))
   }

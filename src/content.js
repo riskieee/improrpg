@@ -22,4 +22,4 @@ class Content {
 
 }
 
-module.exports = Content;
+  module.exports = Content;
