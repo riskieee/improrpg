@@ -2,18 +2,24 @@
 
 class Content {
   constructor(text, addedBy) {
-    this._storyNode = text
-    this._author = addedBy
+
+    this.storyNode = text
+    this.author = addedBy
+
   }
+
   get author() {
-    return this._author;
+
+    return this.author;
+
   }
 
   set author(newValue) {
-    throw new Error(
-      `author is only a getter. You can't override it with ${newValue}.`
-    );
+
+    // throw new Error(`author is only a getter. You can't override it with ${newValue}.`);
+
   }
+
 }
 
 module.exports = Content;

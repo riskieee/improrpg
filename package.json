@@ -1,13 +1,14 @@
 {
   "name": "improrpg",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" ",
+    "test": "echo \"no test specified JUST DO IT \" ",
     "lint": "lint-staged",
     "lintit": "eslint .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "node src/index.js"
   },
   "husky": {
     "hooks": {
@@ -15,16 +16,31 @@
     }
   },
   "lint-staged": {
-    "./**/*.js": [
-      "prettier --write",
+    "*.js": [
+      "pretty-quick --staged",
       "eslint --fix"
+    ],
+    "*.+(json|css|md)": [
+      "pretty-quick --staged"
     ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/riskieee/improrpg.git"
   },
-  "keywords": [],
+  "keywords": [
+    "multiplayer",
+    "live",
+    "text",
+    "role",
+    "play",
+    "game",
+    "rpg",
+    "adventure",
+    "story",
+    "notebook",
+    "sideapp"
+  ],
   "author": "",
   "license": "GNU",
   "bugs": {
