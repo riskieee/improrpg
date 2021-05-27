@@ -1,4 +1,6 @@
+// dependinig external npm packages
 var colors = require('colors');
+var qrcode = require('qrcode-terminal');
 
 // main Story class for improRPG
 
@@ -20,7 +22,7 @@ class Story {
 ### ${colors.bgBlue.black(' STORY INFO ')}
 ----------------------------------------------
       This is:     ${this.name.red}
-      about:       ${this.theme.rainbow } ⛺
+      about:       ${this.theme.rainbow} ⛺
       player:      ${this.participants.length}
       locations:   ${this.content.length}
       last played: ${this.lastEdit} ⏲
@@ -58,7 +60,11 @@ class Story {
     return `### ${'So far the Story of'.bold} ${this.name.red} ${'\n'}
 -----------------------------------------------
     .... here comes the Storycontent .... later ${'\n'}
-    .... ${'\n'}`  // + this.content.map((contentNode) => typeof(contentNode))
+    .... ${'\n'}
+    check out the APP ON improrpg.de
+    ${qrcode.generate('https://improrpg.de/')};
+    `
+    // TO FIX  this.content.map((contentNode) => contentNode.content)
   }
 
 }
