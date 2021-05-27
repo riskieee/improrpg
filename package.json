@@ -1,10 +1,24 @@
 {
   "name": "improrpg",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" ",
+    "lint": "lint-staged",
+    "lintit": "eslint .",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "lint-staged": {
+    "./**/*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "repository": {
     "type": "git",
@@ -16,5 +30,18 @@
   "bugs": {
     "url": "https://github.com/riskieee/improrpg/issues"
   },
-  "homepage": "https://github.com/riskieee/improrpg#readme"
+  "homepage": "https://github.com/riskieee/improrpg#readme",
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-vue": "^7.9.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.0"
+  }
 }
