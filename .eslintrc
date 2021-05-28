@@ -17,6 +17,7 @@
     // "prettier/unicorn",
     // "prettier/vue"
   ],
+	"parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 12
   },
