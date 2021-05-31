@@ -1,0 +1,67 @@
+@startuml
+
+'left to right direction
+top to bottom direction
+'skinparam monochrome reverse
+skinparam actorStyle awesome
+
+
+  usecase "Login" as login
+  usecase "search Story" as search
+  usecase "start Story" as start
+  usecase "read Story" as read
+  usecase "join Story" as join
+
+  usecase "Logout" as logout
+  usecase "change Profile" as profile
+  usecase "leave Story" as leave
+  usecase "share Story" as share
+  usecase "report to admin" as report
+  usecase "report Story" as repoStory
+  usecase "report Story Content" as reportContent
+  usecase "report Player" as repoPlayer
+  usecase "remove Story Content" as delTxt
+  usecase "add Content" as add
+  usecase "add Story Content Text" as addTxt
+  usecase "add Story Option" as addOpt
+  usecase "remove Story Option" as delOpt
+  usecase "start Fight" as fight
+  usecase "manage Player/Storys" as manage
+
+package "Registered" {
+  actor "Gandalf" as regPlayer
+  actor "Admin" as admin
+}
+regPlayer --> profile
+regPlayer --> search
+regPlayer --> read
+read --> join
+read --> leave
+regPlayer --> start
+read --> share
+read --> report
+report --> repoStory
+report --> reportContent
+report --> repoPlayer
+read --> add
+add --> addTxt
+addTxt --> delTxt
+add --> addOpt
+addOpt --> delOpt
+addOpt --> fight
+
+actor "Anonymous Player" as player
+player --> login
+player --> search
+player --> read
+
+admin --> logout
+admin --> manage
+regPlayer --> logout
+login --> regPlayer
+login --> admin
+logout --> player
+
+
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml inmroRPG Class Diagram
+
+class Story {
+
+}
+
+class Player {
+-playerId : ?
+-name : string
+-preferences : arr of string
+-lastActive : ?
+-complaints : arr of obj
+
+get info()
+set info(Error)
+addContent(story, content)
+joinStory(story)
+get name()
+}
+
+class Content {
+
+}
+
+class Fight {
+
+}
+
+@enduml
