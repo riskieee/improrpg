@@ -1,42 +1,57 @@
-'use strict';
 // main Story class for improRPG
+const colors = require('colors')
 
 class Player {
-  constructor(name, theme) {
+  constructor(newName, newPreference) {
     this.playerId = null;
-    this.name = name;
-    this.preferences = [];
-    this.lastActive = null;
+    this.playerName = newName;
+    this.preferences = [newPreference] || [''];
+    this._lastActive = 'yesterday';
     this.complaints = [];
   }
 
-  get info() {
+  get playerInfo() {
     return `
 ### ${colors.bgBlue.black(' Player INFO ')}
 ----------------------------------------------
-      Name/Login   ${this.name.red}
-      Preference:  ${this.preference.rainbow} ⛺
-      Last active:  ${this.lastActive}
-      Complaints:  ${this.complaints.length + ' ' + this.complaints.map((complain) => complain + ' ')} ⏲
+      Name/Login   ${this.playerName.red}
+      Preference:  ${this.preferences.map(item => ' ' + item).rainbow} ⛺
+      Last active: ${this._lastActive}
+      Complaints:  ${this.complaints.length} ${this.complaints.map((complain) => complain)}
     `;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  set info(newValue) {
-    throw new Error(`Player Info is only a getter. You can't override here infos with ${newValue}.`);
+  get name() { return this.playerName; }
+
+  set name(newName) {
+    if (newName) { this.playerName = newName }
   }
 
-  get name() { return this.name; }
-  set name(newName) { this.name.push(newName); }
+  // get preferences() { return this.preferences.map(preferencItem => preferencItem) }
 
-  get preferences() { this.preferences.map(preferencItem => preferencItem + ' '); }
-  set preferences(newPreferenc) { this.preferences.push(newPreferenc); }
+  //set preferences(newPreferenc) { this.preferences.push(newPreferenc); }
 
-  get lastActive() { return this.lastActive; }
-  set name(newActive) { if (newActive.length) this.name = newActive; }
+  get lastActive() {
+    return this._lastActive ? this._lastActive : 'never';
+  }
 
-  get complaints() { this.complaints.map(complainItem => complainItem + ' '); }
-  set complaints(newComplaint) { this.complaints.push(newComplaint); }
+  set lastActive(newActive) {
+    newActive ? this._lastActive = newActive :
+      function () { throw new Error(`Playername is not valid. Try another, please.`) };
+  }
+
+  // get complaints() { this.complaints.map(complainItem => complainItem + ' '); }
+  // set complaints(newComplaint) { this.complaints.push(newComplaint); }
+
+  // method player join story
+  joinStory(newStory) {
+    newStory.participants.push(this.playerName)
+  }
+
+  addContent(currentStory, contentNode) {
+    currentStory.content.push(contentNode)
+    currentStory.addParticipant(this.playerName)
+  }
 
 }
 

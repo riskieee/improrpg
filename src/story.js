@@ -1,7 +1,6 @@
-'use strict';
 // dependinig external npm packages
-var colors = require('colors')
-var qrcode = require('qrcode-terminal')
+const colors = require('colors')
+const qrcode = require('qrcode-terminal')
 
 // main Story class for improRPG
 
@@ -11,7 +10,7 @@ class Story {
     this.theme = theme
     this.participants = []
     this.lastEdit = 0
-    this.content = []
+    this.content = [] // > change to contents
   }
 
   get info() {
@@ -20,43 +19,24 @@ class Story {
 ----------------------------------------------
       This is:     ${this.name.red}
       about:       ${this.theme.rainbow} ⛺
-      player:      ${this.participants.length}
+      player:      ${this.participants.length} ${this.participants.map(player => ' ' + player)}
       locations:   ${this.content.length}
       last played: ${this.lastEdit} ⏲
     `
   }
 
-  set info(newValue) {
-    // throw new Error(`A Story.info is only a getter. You can't override infos it with ${newValue}.`);
-  }
+  // set info(newValue) { throw new Error(`A Story.info is only a getter. You can't override infos it with ${newValue}.`); }
 
-  addContent(text, person) {
-    const contentNode = {
-      content: text,
-      author: person,
-      time: '',
-    }
-    this.content.push(contentNode)
-  }
-
-  //  addContentDecision(option, person) {
-  //    this.content.push(option)
-  //    this.participants.push(person)
-  //  }
-
-  addParticipant(person) {
-    this.participants.push(person)
+  addParticipant(personName) {
+    this.participants.push(personName)
   }
 
   get printStory() {
-    return `### ${'So far the Story of'.bold} ${this.name.red} ${'\n'}
------------------------------------------------
-    .... here comes the Storycontent .... later ${'\n'}
-    .... ${'\n'}
-    check out the APP ON improrpg.de
-    ${qrcode.generate('https://improrpg.de/')};
+    // qrcode.generate('https://improrpg.de/');
+    return `-----------------------------------------------
+### ${'So far the Story of'.bold} ${this.name.red}
 
-    ${this.content.map((contentNode) => contentNode.content)}
+${this.content.map((contentNode) => '> ' + contentNode.storyNode + '\n')}
     `
   }
 }
