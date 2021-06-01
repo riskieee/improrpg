@@ -2,34 +2,34 @@
 const colors = require('colors')
 
 class Player {
+  _playerId = null;
+  _lastActive = 'yesterday';
+  _complaints = [];
   constructor(newName, newPreference) {
-    this.playerId = null;
-    this.playerName = newName;
-    this.preferences = [newPreference] || [''];
-    this._lastActive = 'yesterday';
-    this.complaints = [];
+    this._playerName = newName;
+    this._preferences = [newPreference] || [''];
   }
 
   get playerInfo() {
     return `
 ### ${colors.bgBlue.black(' Player INFO ')}
 ----------------------------------------------
-      Name/Login   ${this.playerName.red}
-      Preference:  ${this.preferences.map(item => ' ' + item).rainbow} ⛺
+      Name/Login   ${this._playerName.red}
+      Preference:  ${this._preferences.map(item => ' ' + item).rainbow} ⛺
       Last active: ${this._lastActive}
-      Complaints:  ${this.complaints.length} ${this.complaints.map((complain) => complain)}
+      Complaints:  ${this._complaints.length} ${this._complaints.map((complain) => complain)}
     `;
   }
 
-  get name() { return this.playerName; }
+  get playerName() { return this._playerName; }
 
-  set name(newName) {
-    if (newName) { this.playerName = newName }
+  set playerName(newName) {
+    if (newName) { this._playerName = newName }
   }
 
-  // get preferences() { return this.preferences.map(preferencItem => preferencItem) }
-
-  //set preferences(newPreferenc) { this.preferences.push(newPreferenc); }
+  get preferences() { return this._preferences }
+  //get singlePreference() { return this._preferences.map(preferencItem => preferencItem) }
+  set preference(newPreference) { this._preferences.push(newPreference); }
 
   get lastActive() {
     return this._lastActive ? this._lastActive : 'never';
@@ -37,20 +37,20 @@ class Player {
 
   set lastActive(newActive) {
     newActive ? this._lastActive = newActive :
-      function () { throw new Error(`Playername is not valid. Try another, please.`) };
+      function () { throw new Error(`_playerName is not valid. Try another, please.`) };
   }
 
-  // get complaints() { this.complaints.map(complainItem => complainItem + ' '); }
-  // set complaints(newComplaint) { this.complaints.push(newComplaint); }
+  // get complaints() { this._complaints.map(complainItem => complainItem + ' '); }
+  // set complaints(newComplaint) { this._complaints.push(newComplaint); }
 
   // method player join story
   joinStory(newStory) {
-    newStory.participants.push(this.playerName)
+    newStory.participants.push(this._playerName)
   }
 
   addContent(currentStory, contentNode) {
-    currentStory.content.push(contentNode)
-    currentStory.addParticipant(this.playerName)
+    currentStory._contents.push(contentNode)
+    currentStory.joinStory(this.playerName)
   }
 
 }

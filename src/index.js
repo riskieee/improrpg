@@ -4,17 +4,18 @@ const Player = require('./player')
 //  -----------------------------------
 
 // create players > content > text
-// content is given by player
 // create storys from class Story
 
+
+// creating players
 const playerLuphus = new Player('Luphus', 'Fantasy')
 const playerErion = new Player('Erion', 'Fantasy')
 const playerSelfil = new Player('Selfil', 'Fantasy')
-const storyFantasy = new Story('Messenger of Doom', 'Fantasy')
-
-
 const playerLisla = new Player('Lisla', 'SyFy')
 const playerDharzeth = new Player('Dharzeth', 'SyFy')
+
+// creating storys
+const storyFantasy = new Story('Messenger of Doom', 'Fantasy')
 const storySyFy = new Story('Aliens get lost', 'SyFy')
 
 // create content for storys from class Content
@@ -45,9 +46,9 @@ playerDharzeth.addContent(storySyFy, s02Text02)
 console.log(playerLisla.playerInfo)
 
 // Story 1
-console.log(storyFantasy.info)
+console.log(storyFantasy.storyInfo)
 console.log(storyFantasy.printStory)
 
 // Story 2
-console.log(storySyFy.info)
+console.log(storySyFy.storyInfo)
 console.table(storySyFy.printStory)
