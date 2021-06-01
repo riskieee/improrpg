@@ -1,29 +1,45 @@
 @startuml inmroRPG Class Diagram
 'https://plantuml.com/en/class-diagram
-class Story {
+'good https://real-world-plantuml.com/umls/4780185589121024
+' ok https://real-world-plantuml.com/umls/4727890604195840
+'typescript interface example https://real-world-plantuml.com/umls/4780185589121024
+' o-> hagregation! =/ composition *->
 
+
+class Story {
+  -participants : [Participant]
+  -lastEdit : Date
+  -contents : [contentNodes]
+  -storyName : Sting
+  -storyTheme : [Sring]
+  -fightStatus : Integer
+
+  storyInfo()
+  printStory()
+  diceroll()
+  joinStory()
 }
 
 class Player {
--playerId : ?
--name : string
--preferences : arr of string
--lastActive : ?
--complaints : arr of obj
+-playerId : ObjID
+-name : String
+-preferences : [Preference]
+-lastActive : Date
+-complaints : [Complaint]
+-storyName : String
+-storyTheme : String
 
 get info()
 set info(Error)
-addContent(story, content)
-joinStory(story)
-get name()
+addContent(Story, ContentNode)
+joinStory(Story)
 }
 
 class Content {
-
+-storyNode : String
 }
 
-class Fight {
-
-}
+Player -> Content
+Content -> Story
 
 @enduml

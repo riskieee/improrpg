@@ -14,7 +14,6 @@ else (Dislike story)
 endif
 :add Content;
 :have fun;
-
 stop
 
 @enduml

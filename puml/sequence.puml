@@ -1,6 +1,9 @@
 'https://plantuml.com/en/sequence-diagram
+'good https://real-world-plantuml.com/umls/4585611759452160
+'ok https://real-world-plantuml.com/umls/4606798564687872
+'good https://real-world-plantuml.com/umls/4649824204881920
 @startuml
-
+' only one state of player
 actor "Visitor" as visitor
 actor "Registered Player" as regPlayer
 actor "Storyteller" as master
