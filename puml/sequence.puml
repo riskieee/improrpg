@@ -1,0 +1,37 @@
+'https://plantuml.com/en/sequence-diagram
+@startuml
+
+actor "Visitor" as visitor
+actor "Registered Player" as regPlayer
+actor "Storyteller" as master
+actor "Admin" as admin
+
+participant "Player Class" as player
+participant "Story Class " as story
+participant "Content Class" as content
+
+visitor -> player :get default public visitor status
+activate player
+player -> story :select and read
+activate story
+story -> master :login for join
+master -> story :be participant
+master -> story :invite player
+player -> story :Storyteller read story
+master -> content :Storyteller add conent
+activate content
+... async updationg story view ...
+content -> story :add content
+deactivate content
+player -> story :player 1 read story
+player -> story :player 2 read story
+player -> content :player 2 add conent
+activate content
+... async updationg story view ...
+content -> story :player 2 create content
+deactivate content
+deactivate story
+story -> player :close story
+player -> player :logout player to visitor
+
+@enduml

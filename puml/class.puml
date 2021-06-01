@@ -1,5 +1,5 @@
 @startuml inmroRPG Class Diagram
-
+'https://plantuml.com/en/class-diagram
 class Story {
 
 }

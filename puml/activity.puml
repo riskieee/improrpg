@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/en/activity-diagram-legacy
+start
+
+:Login;
+:Search story;
+:Join story;
+:Read story;
+if (Like story) then (yes)
+else (Dislike story)
+  repeat
+  :Search story;
+  repeat while (Check story)
+endif
+:add Content;
+:have fun;
+
+stop
+
+@enduml

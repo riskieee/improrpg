@@ -1,0 +1,26 @@
+'https://plantuml.com/en/state-diagram
+@startuml
+' top to bottom
+state "open public page" as publicState
+
+[*] -> publicState : open page
+state publicState {
+  search: search for storys
+  read: read story
+}
+
+publicState -> loginState : Login
+state loginState {
+  create: Create storys
+  invite: invite player
+  add: Add content
+  [*] -> create
+  create  -> invite
+  invite -> add
+}
+
+loginState -> publicState : Logout
+
+publicState -> [*] : Close page
+loginState -> [*] : Close page
+@enduml
