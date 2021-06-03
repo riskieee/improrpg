@@ -25,6 +25,7 @@
   "plugins": ["vue"],
   "rules": {
     // "no-unused-vars": "warn",
+    "no-underscore-dangle": "off",
     "no-console": "off",
     "eqeqeq": "off",
     "class-methods-use-this": "off"
