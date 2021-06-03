@@ -40,5 +40,5 @@ ${this._contents.map((contentNode) => '> ' + contentNode.storyNode + '\n')}
     `
   }
 }
-
+ 
 module.exports = Story

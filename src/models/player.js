@@ -2,12 +2,9 @@
 const colors = require('colors');
 
 class Player {
-  _playerId = null
-
-  _lastActive = 'yesterday'
-
-  _reports = []
-
+  _playerId = null;
+  _lastActive = 'yesterday';
+  _reports = [];
   constructor(newName, newPreference) {
     this._playerName = newName;
     this._preferences = [newPreference] || [''];
@@ -20,20 +17,28 @@ class Player {
       Name/Login   ${this._playerName.red}
       Preference:  ${this._preferences.join(' ').rainbow} ⛺
       Last active: ${this._lastActive}
-      Reports:  ${this._reports.length} ${this._reports.map((report) => report.reportTxt)}
+      Reports:  ${this._reports.length} ${this._reports.map(report => report.reportTxt)}
     `;
   }
 
-  get playerName() { return this._playerName; }
-
-  set playerName(newName) {
-    if (newName) { this._playerName = newName; }
+  get playerName() {
+    return this._playerName;
   }
 
-  get preferences() { return this._preferences; }
+  set playerName(newName) {
+    if (newName) {
+      this._playerName = newName;
+    }
+  }
+
+  get preferences() {
+    return this._preferences;
+  }
 
   // get singlePreference() { return this._preferences.map(preferencItem => preferencItem) }
-  set preference(newPreference) { this._preferences.push(newPreference); }
+  set preference(newPreference) {
+    this._preferences.push(newPreference);
+  }
 
   get lastActive() {
     return this._lastActive ? this._lastActive : 'never';
@@ -64,10 +69,11 @@ class Player {
 ### ${colors.bgBlue.black(' Report INFO ')}
 ----------------------------------------------
       Name/Login   ${this._playerName.red}
-      Reports (${this._reports.length}) : ${this._reports.map((report) => `${report.reportTxt}reporter: ${report.reporter}`)}
+      Reports (${this._reports.length}) : ${this._reports.map(
+      report => `${report.reportTxt}reporter: ${report.reporter}`
+    )}
     `;
   }
-
 }
 
 module.exports = Player;
