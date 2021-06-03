@@ -4,7 +4,7 @@ const colors = require('colors')
 class Player {
   _playerId = null;
   _lastActive = 'yesterday';
-  _complaints = [];
+  _reports = [];
   constructor(newName, newPreference) {
     this._playerName = newName;
     this._preferences = [newPreference] || [''];
@@ -17,7 +17,7 @@ class Player {
       Name/Login   ${this._playerName.red}
       Preference:  ${this._preferences.map(item => ' ' + item).rainbow} ⛺
       Last active: ${this._lastActive}
-      Complaints:  ${this._complaints.length} ${this._complaints.map((complain) => complain)}
+      Reports:  ${this._reports.length} ${this._reports.map((report) => report.reportTxt)}
     `;
   }
 
@@ -40,8 +40,6 @@ class Player {
       function () { throw new Error(`_playerName is not valid. Try another, please.`) };
   }
 
-  // get complaints() { this._complaints.map(complainItem => complainItem + ' '); }
-  // set complaints(newComplaint) { this._complaints.push(newComplaint); }
 
   // method player join story
   joinStory(newStory) {
@@ -51,6 +49,19 @@ class Player {
   addContent(currentStory, contentNode) {
     currentStory._contents.push(contentNode)
     currentStory.joinStory(this.playerName)
+  }
+
+  addReport(reportedPlayer, toReportTxt) {
+    reportedPlayer._reports.push({ reportTxt: toReportTxt, reporter: this._playerName })
+  }
+
+  get reportInfo() {
+    return `
+### ${colors.bgBlue.black(' Report INFO ')}
+----------------------------------------------
+      Name/Login   ${this._playerName.red}
+      Reports (${this._reports.length}) : ${this._reports.map((report) => report.reportTxt + 'reporter: ' + report.reporter)}
+    `;
   }
 
 }

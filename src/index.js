@@ -46,6 +46,10 @@ console.log(storyFantasy.printStory)
 console.log(storySyFy.storyInfo)
 console.table(storySyFy.printStory)
 
-// Timestamp
+// Timestamp test
 const timer = new timeStamp()
 console.log('Timestamp: ' + timer.timeNow)
+
+// Report
+playerLuphus.addReport(playerErion, 'He has killed way too much Oger! I didnt get one... ')
+console.log(playerErion.reportInfo)
