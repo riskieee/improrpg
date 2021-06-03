@@ -1,6 +1,6 @@
 {
   "name": "improrpg",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
   "main": "src/index.js",
   "scripts": {
@@ -16,13 +16,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "pretty-quick --staged",
-      "eslint --fix"
-    ],
-    "*.+(json|css|md)": [
-      "pretty-quick --staged"
-    ]
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "repository": {
     "type": "git",
@@ -48,9 +43,10 @@
   },
   "homepage": "https://github.com/riskieee/improrpg#readme",
   "devDependencies": {
+    "eslint": "^7.27.0",
+    "babel-eslint": "^10.1.0",
     "@babel/eslint-parser": "^7.14.3",
     "@babel/plugin-syntax-top-level-await": "^7.12.13",
-    "eslint": "^7.27.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
