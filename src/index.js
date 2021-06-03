@@ -1,7 +1,7 @@
 const Story = require('./story')
 const Content = require('./content')
 const Player = require('./player')
-const timeStamp = require('./timestamp')
+const TimeStamp = require('./timestamp')
 //  -----------------------------------
 
 // create players > content > text
@@ -35,9 +35,6 @@ playerSelfil.addContent(storyFantasy, s01Text03)
 playerLisla.addContent(storySyFy, s02Text01)
 playerDharzeth.addContent(storySyFy, s02Text02)
 
-// player Infos
-console.log(playerLisla.playerInfo)
-
 // Story 1
 console.log(storyFantasy.storyInfo)
 console.log(storyFantasy.printStory)
@@ -46,10 +43,13 @@ console.log(storyFantasy.printStory)
 console.log(storySyFy.storyInfo)
 console.table(storySyFy.printStory)
 
-// Timestamp test
-const timer = new timeStamp()
-console.log('Timestamp: ' + timer.timeNow)
+// Timestamp test class not used yet
+const timer = new TimeStamp()
+console.log(`Timestamp:  ${timer.timeNow}`)
 
 // Report
-playerLuphus.addReport(playerErion, 'He has killed way too much Oger! I didnt get one... ')
+playerLuphus.addReport(playerErion, "He has killed way too much Oger! I didn't get one...")
 console.log(playerErion.reportInfo)
+
+// player Infos
+console.log(playerErion.playerInfo)

@@ -1,4 +1,6 @@
-/* https://eslint.org/docs/rules/ */
+/* https://eslint.org/docs/rules/
+   https://www.youtube.com/watch?v=cMrDePs86Uo
+*/
 {
   "env": {
     "browser": true,
@@ -6,10 +8,10 @@
     "es2021": true
   },
   "extends": [
-    // "eslint:recommended",
+    "eslint:recommended",
     // "plugin:vue/essential",
-    "airbnb",
-    "prettier"
+    "airbnb"
+    // "prettier"
     // "prettier/@typescript-eslint",
     // "prettier/babel",
     // "prettier/flowtype",
@@ -24,7 +26,7 @@
   },
   "plugins": ["vue"],
   "rules": {
-    // "no-unused-vars": "warn",
+    "padded-blocks": "off",
     "no-underscore-dangle": "off",
     "no-console": "off",
     "eqeqeq": "off",
