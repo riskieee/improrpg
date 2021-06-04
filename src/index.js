@@ -1,4 +1,5 @@
 // NOT IN USE
+/* eslint-disable */
 
 const Story = require('./story');
 const Content = require('./content');

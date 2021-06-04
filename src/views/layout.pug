@@ -2,6 +2,28 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='../style/normalize.css')
+    link(rel='stylesheet', href='../style/style.css')
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' integrity='sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I' crossorigin='anonymous')
   body
-    block content
+    .container
+      .row
+        .col-sm-12
+            nav(class="navbar navbar-expand-sm navbar-dark bg-dark mb-2")
+              .container-fluid
+                a(class="navbar-brand" href="/") improRPG
+                button(class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation")
+                  span(class="navbar-toggler-icon")
+                div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
+                  div(class="navbar-nav")
+                    a(class="fs-5 nav-link active" aria-current="page" href="/") HOME
+                    a(class="fs-5 nav-link" href="/user") PLAYER
+                    a(class="fs-5 nav-link" href="/story") STORY
+      .row
+        .col-sm-2
+          img.card-img-top(src='/img/logo-improrpg.png' alt='improRPG Logo')
+        .col-sm-10
+          block content

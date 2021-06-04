@@ -25,6 +25,16 @@ class Story {
     `
   }
 
+  get storyName() {
+    return this._storyName
+  }
+
+  set storyName(newName) {
+    if (newName) {
+      this._storyName = newName
+    }
+  }
+
   // set info(newValue) { throw new Error(`A Story.info is only a getter. You can't override infos it with ${newValue}.`); }
 
   joinStory(personName) {
@@ -36,9 +46,9 @@ class Story {
     return `-----------------------------------------------
 ### ${'So far the Story of'.bold} ${this._storyName.red}
 
-${this._contents.map((contentNode) => '> ' + contentNode.storyNode + '\n')}
+${this._contents.map(contentNode => '> ' + contentNode.storyNode + '\n')}
     `
   }
 }
- 
+
 module.exports = Story

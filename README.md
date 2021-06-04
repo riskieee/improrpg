@@ -11,6 +11,8 @@ https://improRPG.de/
 ```sh
 npm install
 npm run dist
+
+DEBUG=improRPG:* npm start
 ```
 
 # LICENSE
