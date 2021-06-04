@@ -10,8 +10,8 @@
   "extends": [
     "eslint:recommended",
     // "plugin:vue/essential",
-    "airbnb"
-    // "prettier"
+    "airbnb",
+    "prettier"
     // "prettier/@typescript-eslint",
     // "prettier/babel",
     // "prettier/flowtype",
@@ -26,6 +26,8 @@
   },
   "plugins": ["vue"],
   "rules": {
+    "lines-between-class-members": "off",
+    "comma-dangle": ["error", "never"],
     "padded-blocks": "off",
     "no-underscore-dangle": "off",
     "no-console": "off",

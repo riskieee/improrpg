@@ -2,13 +2,16 @@
   "name": "improrpg",
   "version": "0.0.5",
   "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
-  "main": "src/index.js",
+  "homepage": "https://github.com/riskieee/improrpg#readme",
+  "bugs": {
+    "url": "https://github.com/riskieee/improrpg/issues"
+  },
   "scripts": {
     "test": "echo \"no test specified JUST DO IT \" ",
     "lint": "lint-staged",
     "lintit": "eslint .",
     "prepare": "husky install",
-    "start": "node src/index.js"
+    "start": "node ./bin/www"
   },
   "husky": {
     "hooks": {
@@ -16,8 +19,13 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.js": [
+      "pretty-quick --staged",
+      "eslint --fix"
+    ],
+    "*.+(json|css|md)": [
+      "pretty-quick --staged"
+    ]
   },
   "repository": {
     "type": "git",
@@ -36,17 +44,12 @@
     "notebook",
     "sideapp"
   ],
-  "author": "",
-  "license": "GNU",
-  "bugs": {
-    "url": "https://github.com/riskieee/improrpg/issues"
-  },
-  "homepage": "https://github.com/riskieee/improrpg#readme",
   "devDependencies": {
-    "eslint": "^7.27.0",
-    "babel-eslint": "^10.1.0",
     "@babel/eslint-parser": "^7.14.3",
     "@babel/plugin-syntax-top-level-await": "^7.12.13",
+    "babel-eslint": "^10.1.0",
+    "connect-livereload": "^0.6.1",
+    "eslint": "^7.27.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -57,10 +60,17 @@
     "eslint-plugin-vue": "^7.9.0",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
+    "livereload": "^0.9.3",
     "prettier": "^2.3.0"
   },
   "dependencies": {
     "colors": "^1.4.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2",
     "qrcode-terminal": "^0.12.0"
   }
 }
