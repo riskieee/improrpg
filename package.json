@@ -11,7 +11,7 @@
     "lint": "lint-staged",
     "lintit": "eslint .",
     "prepare": "husky install",
-    "start": "node ./bin/www"
+    "start": "nodemon bin/www"
   },
   "husky": {
     "hooks": {
