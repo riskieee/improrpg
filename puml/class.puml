@@ -7,39 +7,63 @@
 
 
 class Story {
-  -participants : [Participant]
-  -lastEdit : Date
-  -contents : [contentNodes]
+  -storyID : ObjID
   -storyName : Sting
   -storyTheme : [Sring]
-  -fightStatus : Integer
+  -created : Date
+  -lastEdit : Date
+  -participants : [Participant]
+  -contents : [contentNode]
 
+  constructor(storyID : ObjID, storyName : Sting, storyTheme : [String], created : Date)
   storyInfo()
   printStory()
-  diceroll()
-  joinStory()
+  fight()
+  attendanceSwitch(player)
 }
 
 class Player {
--playerId : ObjID
--name : String
--preferences : [Preference]
--lastActive : Date
--complaints : [Complaint]
--storyName : String
--storyTheme : String
+  -playerId : ObjID
+  -name : String
+  -email : String
+  -password : #String
+  -preferences : [Preference]
+  -lastActive : Date
+  -created : Date
+  -reports : [Report]
 
-get info()
-set info(Error)
-addContent(Story, ContentNode)
-joinStory(Story)
+  constructor(playerId : ObjID, name : String, email : String, password : #String)
+  get playerID()
+  get playerName()
+  set playerName()
+  get playerMail()
+  set playerMail()
+  get playerPassword()
+  set playerPassword()
+  get playerPreferences()
+  set playerPreferences()
+  get playerActive()
+  set playerActive()
+
+  get addReport(reportingPlayer, reportedTxt)
+  set addReport(reportedPlayer, reportTxt)
+  get playerInfo()
+  addContent(Story, ContentNode)
 }
 
-class Content {
--storyNode : String
+class storyNode {
+  -storyDate : DATE
+  -storyText : String
+  -playerCreator : playerID
+  -option : BOOL
+  -figth : BOOL
+  -branch : ???
+
+  constructor( storyDate : DATE, storyText : String, playerCreator : playerID)
 }
 
-Player -> Content
-Content -> Story
+Player "1" o-- "0..*" storyNode
+Story "1" o-- "0..*" storyNode
+
 
 @enduml
