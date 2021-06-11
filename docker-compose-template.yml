@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    image: improrpg
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_USERNAME=username
+      - MONGODB_PASSWORD=password
+      - MONGODB_DATABASE=dbName
+      # for ATLAS remote mongoDB comment next out with #
+      #- MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
+    ports:
+      - 3000:3000
+      - 35729:35729
+    volumes:
+      - ./src:/app/src
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
