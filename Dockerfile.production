@@ -1,4 +1,5 @@
-# FROM node:14.08.0-alpine3.11 # use exact version
+# use exact version
+FROM node:14.08.0-alpine3.11
 
 ENV NODE_ENV=production
 
