@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# BEWARE env vars in docker-compose.yml
+gidocker-compose.yml
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -102,3 +105,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# DOCKER
+docker-compose.yml
