@@ -6,7 +6,13 @@ is a live IMPROvisied multiplayer text based Role Play Game adventure story note
 
 https://improRPG.de/
 
-### npm
+### npm setup
+
+env need to be setup fpr mongoDB
+MONGODB_USERNAME=yourUserName
+MONGODB_PASSWORD=yourPassword
+MONGODB_DATABASE=yourDBname
+MONGODB_CONNECTION_STRING=yourMongoDBurlIfNotLocal
 
 ```sh
 npm install
