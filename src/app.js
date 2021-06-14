@@ -1,14 +1,34 @@
+// Server setup
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
-const indexRouter = require('./routes/index')
-const playerRouter = require('./routes/player')
-const storyRouter = require('./routes/story')
+// mongoDB connection setup
+require('./database-connection')
 
+// App setup
 const app = express()
+
+// Route setup https://masteringjs.io/tutorials/express/app-use
+const indexRouter = require('./routes/index')
+const playersRouter = require('./routes/player')
+const storysRouter = require('./routes/storys')
+
+app.use('/', indexRouter)
+app.use('/players', playersRouter)
+app.use('/storys', storysRouter)
+
+// livereload setup
+if (app.get('env') == 'development') {
+  /* eslint-disable-next-line */
+  app.use(require('connect-livereload')())
+  /* eslint-disable-next-line */
+  require('livereload')
+    .createServer({ extraExts: ['pug'] })
+    .watch([`${__dirname}/public`, `${__dirname}/views`])
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -19,10 +39,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
-
-app.use('/', indexRouter)
-app.use('/player', playerRouter)
-app.use('/story', storyRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

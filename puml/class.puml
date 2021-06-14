@@ -4,7 +4,9 @@
 ' ok https://real-world-plantuml.com/umls/4727890604195840
 'typescript interface example https://real-world-plantuml.com/umls/4780185589121024
 ' o-> hagregation! =/ composition *->
-
+' -----------------------------
+' render by [Alt] + [d]
+' -----------------------------
 
 class Story {
   -storyID : ObjID
@@ -23,14 +25,14 @@ class Story {
 }
 
 class Player {
-  -playerId : ObjID
-  -name : String
-  -email : String
-  -password : #String
-  -preferences : [Preference]
-  -lastActive : Date
-  -created : Date
-  -reports : [Report]
+  playerId : ObjID
+  playerName : String
+  playerMail : String
+  password : #String
+  preferences : [Preference]
+  lastActive : Date
+  created : Date
+  reports : [Report]
 
   constructor(playerId : ObjID, name : String, email : String, password : #String)
   get playerID()

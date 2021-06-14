@@ -1,31 +1,24 @@
-const express = require('express')
+/* NOT IN USE
 
-const router = express.Router()
+ToDo
+-  require here all stuff like before in index
+- index > create player + story require in app .js > before all
+- require models and all but not elsewhere > class export or here create person export  that many arrays al player or storys ...
+- in routes import all arrays (player storys)
+- for testing .... aber dann database und mongodb
+*/
 
-const Player = require('../models/player')
-const Story = require('../models/story')
-const Content = require('../models/content')
-const Report = require('../models/report')
+// app setup
+const Player = require('./player')
+const Story = require('./story')
+const Content = require('./content')
+const Report = require('./report')
 
-router.get('/', async (req, res) => {
-  const query = { Story } // initial get all
+// preparing for end-export
+const players = []
+const storys = []
 
-  // explicitly name allowed searches for safty by URL: localhost:3000/storys
-  if (req.query.storyName) {
-    query.storyName = req.query.storyName
-  }
-
-  if (req.query.storyTheme) {
-    query.storyTheme = req.query.storyTheme
-  }
-
-  res.render('index', await Story.find(query))
-
-  // res.render('index', { message: 'hello as json' })
-})
-
-// ///////// db init content
-router.get('/init', async (req, res) => {
+async function initalizeProject() {
   await Player.deleteMany()
   await Story.deleteMany()
   await Content.deleteMany()
@@ -89,16 +82,11 @@ router.get('/init', async (req, res) => {
   await playerLisla.addContent(storySyFy, s02Text01)
   await playerDharzeth.addContent(storySyFy, s02Text02)
 
-  console.log(storyFantasy.printStory())
-  res.sendStatus(200)
-})
+  // sum up for export
+  // players.push([playerLuphus, playerErion, playerSelfil, playerLisla, playerDharzeth])
+  // storys.push([storyFantasy, storySyFy])
+}
 
-// router.post('/bootstrap', (req, res) => {
-//   res.render('bootstrap', { title: 'bootstrap' })
-// })
+initalizeProject()
 
-// router.post('/bootstrap', (req, res) => {
-//   res.render('bootstrap', { title: 'bootstrap' })
-// })
-
-module.exports = router
+module.exports = { players, storys }

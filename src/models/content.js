@@ -1,9 +1,21 @@
 // main Content class for improRPG
 
-class Content {
-  constructor(newContent) {
-    this.storyNode = newContent
-  }
-}
+const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
 
-module.exports = Content
+const Player = require('./player')
+
+const ContentSchema = new mongoose.Schema({
+  addingPlayer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Player',
+    required: true
+  },
+  contentNode: {
+    type: String,
+    required: true
+  }
+})
+
+ContentSchema.plugin(autopopulate)
+module.exports = mongoose.model('Content', ContentSchema)

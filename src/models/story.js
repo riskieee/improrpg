@@ -1,54 +1,79 @@
-// dependinig external npm packages
-const colors = require('colors')
-const qrcode = require('qrcode-terminal')
-
 // main Story class for improRPG
 
+const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
+
+const Content = require('./content')
+
+const storySchema = new mongoose.Schema({
+  storyName: {
+    type: String,
+    unique: true,
+    required: true,
+    minlength: 2,
+    maxlength: 30
+  },
+  storyTheme: [
+    {
+      type: String,
+      minlength: 2,
+      maxlength: 50
+    }
+  ],
+  storyCover: {
+    type: String,
+    minlength: 4,
+    maxlength: 50
+  },
+  contentNodes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Content',
+      autopopulate: true
+    }
+  ],
+  lastEdit: {
+    type: Date,
+    default: Date.now
+  }
+})
+
 class Story {
-  _participants = []
-  _lastEdit = 0
-  _contents = []
-  constructor(newName, newTheme) {
-    this._storyName = newName
-    this._storyTheme = newTheme
-  }
-
-  get storyInfo() {
-    return `
-### ${colors.bgBlue.black(' STORY INFO ')}
-----------------------------------------------
-      This is:     ${this._storyName.red}
-      about:       ${this._storyTheme.rainbow} ⛺
-      player:      ${this._participants.length} ${this._participants.map(player => ' ' + player)}
-      locations:   ${this._contents.length}
-      last played: ${this._lastEdit} ⏲
-    `
-  }
-
-  get storyName() {
-    return this._storyName
-  }
-
-  set storyName(newName) {
-    if (newName) {
-      this._storyName = newName
+  get printStory() {
+    return {
+      storyName: this.storyName,
+      storyTheme: this.storyTheme,
+      storyCover: this.storyCover,
+      storyPlayer: this.storyPlayer,
+      storyLength: this.contentNodes.length,
+      contentNodes: this.contentNodes,
+      lastEdit: this.lastEdit
     }
   }
 
-  // set info(newValue) { throw new Error(`A Story.info is only a getter. You can't override infos it with ${newValue}.`); }
-
-  joinStory(personName) {
-    this._participants.push(personName)
+  get storyPlayer() {
+    return 'ToDo to implementent' // get addingPlayer from storyNode
   }
 
-  get printStory() {
-    // qrcode.generate('https://improrpg.de/');
-    return `-----------------------------------------------
-### ${'So far the Story of'.bold} ${this._storyName.red}
+  // as mongo is taking care no getter/setter are needed
+  // get storyName() {
+  //   return this._storyName
+  // }
 
-${this._contents.map(contentNode => '> ' + contentNode.storyNode + '\n')}
-    `
-  }
+  // get storyCover() {
+  //   return this._storyCover
+  // }
+
+  // get lastEdit() {
+  //   return this._lastEdit
+  // }
+
+  // get contentNodes() {
+  //   return this._contentNodes
+  // }
 }
 
-module.exports = Story
+storySchema.loadClass(Story)
+storySchema.plugin(autopopulate)
+
+module.exports = mongoose.model('Story', storySchema)

@@ -1,79 +1,98 @@
 // main Story class for improRPG
-const colors = require('colors');
+const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
+
+const Content = require('./content')
+const Report = require('./report')
+// const Timestamp = require('./timestamp')
+
+const playerSchema = new mongoose.Schema({
+  playerName: {
+    type: String,
+    // unique: true,
+    required: true,
+    minlength: 3,
+    maxlength: 30
+  },
+  playerMail: {
+    type: String,
+    minlength: 6,
+    maxlength: 40,
+    unique: true
+  },
+  playerPhoto: {
+    type: String,
+    minlength: 4,
+    maxlength: 50
+  },
+  playerPreferences: [
+    {
+      type: String,
+      minlength: 4,
+      maxlength: 50
+    }
+  ],
+  playerReports: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Report',
+      autopopulate: true
+    }
+  ],
+  playerLastActive: {
+    type: Date,
+    default: Date.now
+  }
+})
 
 class Player {
-  _playerId = null;
-  _lastActive = 'yesterday';
-  _reports = [];
-  constructor(newName, newPreference) {
-    this._playerName = newName;
-    this._preferences = [newPreference] || [''];
-  }
-
-  get playerInfo() {
-    return `
-### ${colors.bgBlue.black(' Player INFO ')}
-----------------------------------------------
-      Name/Login   ${this._playerName.red}
-      Preference:  ${this._preferences.join(' ').rainbow} ⛺
-      Last active: ${this._lastActive}
-      Reports:  ${this._reports.length} ${this._reports.map(report => report.reportTxt)}
-    `;
-  }
-
-  get playerName() {
-    return this._playerName;
-  }
-
-  set playerName(newName) {
-    if (newName) {
-      this._playerName = newName;
+  playerInfo() {
+    return {
+      playerName: this.playerName,
+      playerMail: this.playerMail,
+      playerPhoto: this.playerPhoto,
+      playerPreferences: this.playerPreferences,
+      playerReportsLength: this.playerReports.length,
+      playerReports: this.playerReports,
+      playerLastActive: this.playerLastActive
     }
   }
 
-  get preferences() {
-    return this._preferences;
-  }
-
-  // get singlePreference() { return this._preferences.map(preferencItem => preferencItem) }
-  set preference(newPreference) {
-    this._preferences.push(newPreference);
-  }
-
-  get lastActive() {
-    return this._lastActive ? this._lastActive : 'never';
-  }
-
-  // NOT ACTIVE YET
-  // set lastActive(newActive) {
-  //   newActive ? this._lastActive = newActive
-  //     : function () { throw new Error('_playerName is not valid. Try another, please.'); };
+  // as mongo is taking care of sec no getter/setter are needed
+  // get playerName() {
+  //   return this._playerName
   // }
 
-  // method player join story
-  joinStory(newStory) {
-    newStory.participants.push(this._playerName);
+  // get playerPhoto() {
+  //   return this._playerPhoto
+  // }
+
+  // get playerLastActive() {
+  //   return this._playerLastActive
+  // }
+
+  // get playerReports() {
+  //   return this._playerReports
+  // }
+
+  async joinStory(storyToJoin) {
+    storyToJoin.participants.push(this)
+    await storyToJoin.save()
   }
 
-  addContent(currentStory, contentNode) {
-    currentStory._contents.push(contentNode);
-    currentStory.joinStory(this.playerName);
+  async addContent(currentStory, toAddContentNode) {
+    const newContetnNode = await Content.create(this, toAddContentNode)
+    currentStory.storyNodes(newContetnNode)
+    await currentStory.save()
   }
 
-  addReport(reportedPlayer, toReportTxt) {
-    reportedPlayer._reports.push({ reportTxt: toReportTxt, reporter: this._playerName });
-  }
-
-  get reportInfo() {
-    return `
-### ${colors.bgBlue.black(' Report INFO ')}
-----------------------------------------------
-      Name/Login   ${this._playerName.red}
-      Reports (${this._reports.length}) : ${this._reports.map(
-      report => `${report.reportTxt}reporter: ${report.reporter}`
-    )}
-    `;
+  async addReport(reportedPlayer, reportingPlayer, toReportTxt) {
+    const newReport = await Report.create(reportingPlayer, this, toReportTxt)
+    reportedPlayer.playerReports(newReport)
+    await reportedPlayer.save()
   }
 }
+playerSchema.loadClass(Player)
+playerSchema.plugin(autopopulate)
 
-module.exports = Player;
+module.exports = mongoose.model('Player', playerSchema)

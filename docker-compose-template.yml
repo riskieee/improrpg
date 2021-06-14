@@ -10,7 +10,7 @@ services:
       - MONGODB_PASSWORD=password
       - MONGODB_DATABASE=dbName
       # for ATLAS remote mongoDB comment next out with #
-      #- MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
+      - MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
     ports:
       - 3000:3000
       - 35729:35729

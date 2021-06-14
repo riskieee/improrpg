@@ -1,6 +1,6 @@
 {
   "name": "improrpg",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
   "homepage": "https://github.com/riskieee/improrpg#readme",
   "bugs": {
@@ -11,6 +11,7 @@
     "lint": "lint-staged",
     "lintit": "eslint .",
     "prepare": "husky install",
+    "debug": "nodemon bin/www DEBUG=improRPG:*",
     "start": "nodemon bin/www"
   },
   "husky": {
@@ -58,7 +59,6 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-vue": "^7.9.0",
-    "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "livereload": "^0.9.3",
     "prettier": "^2.3.0"
@@ -69,6 +69,9 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "husky": "^6.0.0",
+    "mongoose": "^5.12.13",
+    "mongoose-autopopulate": "^0.14.0",
     "morgan": "~1.9.1",
     "pug": "^3.0.2",
     "qrcode-terminal": "^0.12.0"

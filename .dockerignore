@@ -1,4 +1,5 @@
 node_modules
+husky
 .env
 .vscode
 # depending on goal next files could be added to dev containers

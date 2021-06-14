@@ -1,10 +1,39 @@
-// main Content class for improRPG
+// main Report class for improRPG
 
-// not yet used!!!!
+const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
+
+const Player = require('./player')
+
+const reportSchema = new mongoose.Schema({
+  reportedPlayer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Player',
+    required: true,
+    autopopulate: true
+  },
+  reportingPlayer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Player',
+    required: true,
+    autopopulate: true
+  },
+  toReportTxt: {
+    type: String,
+    required: true
+  }
+})
+
 class Report {
-  constructor(reportetPlayer, toReportTxt, reportingPlayer) {
-    reportetPlayer._reports.push({ reportTxt: toReportTxt, reporter: reportingPlayer._playerName });
+  printReport() {
+    return {
+      reportedPlayer: this.reportedPlayer,
+      reportingPlayer: this.reportingPlayer,
+      reportTxt: this.reportTxt
+    }
   }
 }
 
-module.exports = Report;
+reportSchema.loadClass(Report)
+reportSchema.plugin(autopopulate)
+module.exports = mongoose.model('Report', reportSchema)
