@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1 PLAYERS
-  h3 #{player.playerName}
+  h2 Join our community
+    //- p #{players}
+    each player in players
+      hr
+      h4| #{player.playerName}
+      p| #{player.playerMail}
+      p| #{player.playerReports}
+      p| likes: #{player.playerPreferences}

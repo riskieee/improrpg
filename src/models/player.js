@@ -58,32 +58,15 @@ class Player {
     }
   }
 
-  // as mongo is taking care of sec no getter/setter are needed
-  // get playerName() {
-  //   return this._playerName
-  // }
-
-  // get playerPhoto() {
-  //   return this._playerPhoto
-  // }
-
-  // get playerLastActive() {
-  //   return this._playerLastActive
-  // }
-
-  // get playerReports() {
-  //   return this._playerReports
-  // }
-
   async joinStory(storyToJoin) {
     storyToJoin.participants.push(this)
     await storyToJoin.save()
   }
 
   async addContent(currentStory, toAddContentNode) {
-    const newContetnNode = await Content.create(this, toAddContentNode)
-    currentStory.storyNodes(newContetnNode)
+    currentStory.contentNodes.push(toAddContentNode)
     await currentStory.save()
+    return currentStory
   }
 
   async addReport(reportedPlayer, reportingPlayer, toReportTxt) {

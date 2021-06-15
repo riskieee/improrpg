@@ -19,7 +19,8 @@ mongoose.set('debug', true) // see all query logs and calls when started as DEBU
 mongoose
   .connect(
     // rebuild from local stored .env variables
-    `mongodb+srv://${username}:${password}@improrpg.rwmyc.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+    // `mongodb+srv://${username}:${password}@improrpg.rwmyc.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+    connectionString,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true

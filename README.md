@@ -15,8 +15,8 @@ MONGODB_DATABASE=yourDBname
 MONGODB_CONNECTION_STRING=yourMongoDBurlIfNotLocal
 
 ```sh
-npm install
-npm run dist
+$ git clone git@github.com:riskieee/improrpg.git
+
 
 DEBUG=improRPG:* npm start
 ```

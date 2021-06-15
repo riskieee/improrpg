@@ -8,20 +8,8 @@ const Content = require('../models/content')
 const Report = require('../models/report')
 
 router.get('/', async (req, res) => {
-  const query = { Story } // initial get all
-
-  // explicitly name allowed searches for safty by URL: localhost:3000/storys
-  if (req.query.storyName) {
-    query.storyName = req.query.storyName
-  }
-
-  if (req.query.storyTheme) {
-    query.storyTheme = req.query.storyTheme
-  }
-
-  res.render('index', await Story.find(query))
-
-  // res.render('index', { message: 'hello as json' })
+  const storys = await Story.find({})
+  res.render('index', { storys })
 })
 
 // ///////// db init content
@@ -68,28 +56,46 @@ router.get('/init', async (req, res) => {
   const storySyFy = await Story.create({ storyName: 'Aliens get lost', storyTheme: 'SyFy', storyCover: 'syfy.jpg' })
 
   // create content for storys from class Content
-  const s01Text01 = new Content(
-    'Your uncle asked you to bring a tied package to his br0other in the next village. Your journey begins today. You have packed a backpack with food, a change clothes, some tools, a knife, a blanket, rope and a tent. The weather is good and you set off.'
-  )
-  const s01Text02 = new Content(
-    'Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.'
-  )
-  const s01Text03 = new Content('They are 5 paths. What they be? You look around and see 5 Options.')
-  const s02Text01 = new Content(
-    'You arrive on the moon for a maintenance mission. The crew is eagerly awaiting you, as they have already air losses. The technician asks you to follow him right away.'
-  )
-  const s02Text02 = new Content(
-    'You move weightlessly through the entire ship and can already see more tasks for later. The impact of the satellite has left not only external damage you already fixed... You reach the place with the micro hole. What do you want to do?'
-  )
+  // + player adding content to storys
+  const contents01Text01 = await Content.create({
+    addingPlayer: playerLuphus,
+    storyTheme: 'SyFy',
+    contentNode:
+      'Your uncle asked you to bring a tied package to his br0other in the next village. Your journey begins today. You have packed a backpack with food, a change clothes, some tools, a knife, a blanket, rope and a tent. The weather is good and you set off.'
+  })
+  await playerLuphus.addContent(storyFantasy, contents01Text01)
 
-  // player adding content to storys
-  await playerLuphus.addContent(storyFantasy, s01Text01)
-  await playerErion.addContent(storyFantasy, s01Text02)
-  await playerSelfil.addContent(storyFantasy, s01Text03)
-  await playerLisla.addContent(storySyFy, s02Text01)
-  await playerDharzeth.addContent(storySyFy, s02Text02)
+  const contents01Text02 = await Content.create({
+    addingPlayer: playerLuphus,
+    storyTheme: 'SyFy',
+    contentNode:
+      'Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.'
+  })
+  await playerErion.addContent(storyFantasy, contents01Text02)
 
-  console.log(storyFantasy.printStory())
+  const contents01Text03 = await Content.create({
+    addingPlayer: playerSelfil,
+    storyTheme: 'SyFy',
+    contentNode: 'They are 5 paths. What they be? You look around and see 5 Options.'
+  })
+  await playerSelfil.addContent(storyFantasy, contents01Text03)
+
+  const contents02Text01 = await Content.create({
+    addingPlayer: playerLisla,
+    storyTheme: 'SyFy',
+    contentNode:
+      'You arrive on the moon for a maintenance mission. The crew is eagerly awaiting you, as they have already air losses. The technician asks you to follow him right away.'
+  })
+  await playerLisla.addContent(storySyFy, contents02Text01)
+
+  const contents02Text02 = await Content.create({
+    addingPlayer: playerDharzeth,
+    storyTheme: 'SyFy',
+    contentNode:
+      'You move weightlessly through the entire ship and can already see more tasks for later. The impact of the satellite has left not only external damage you already fixed... You reach the place with the micro hole. What do you want to do?'
+  })
+  await playerDharzeth.addContent(storySyFy, contents02Text02)
+
   res.sendStatus(200)
 })
 
