@@ -1,6 +1,6 @@
 const { ExpectationFailed } = require('http-errors')
 const request = require('supertest')
-const app = require('../../src/app')
+const app = require('../src/app')
 
 describe('Player endpoints', () => {
   it('post req to create a player', async () => {

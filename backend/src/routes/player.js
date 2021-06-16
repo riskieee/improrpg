@@ -53,7 +53,7 @@ router.get('/:storyName', (req, res) => {
 
 /* POST create a player */
 router.post('/', async (req, res) => {
-  const createdPlayer = await Player.create(req.body)
+  const createdPlayer = await Players.create(req.body)
   res.send(createdPlayer)
 })
 
