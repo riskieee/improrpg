@@ -8,16 +8,28 @@ const Storys = require('../models/story')
 const Content = require('../models/content')
 
 /* GET users listing. */
-router.get('/', (req, res) => {
-  let result = Storys
+// router.get('/', (req, res) => {
+// let result = Storys
+//
+// if (req.query.story) {
+// result = Storys.filter(story => story.storyName == req.query.storyName)
+// }
+//
+// res.send(result)
+// })
+router.get('/', async (req, res) => {
+  const query = {}
 
-  if (req.query.story) {
-    result = Storys.filter(story => story.storyName == req.query.storyName)
+  if (req.query.storyName) {
+    query.storyName = req.query.storyName
   }
 
-  res.send(result)
-})
+  if (req.query.storyCover) {
+    query.storyCover = req.query.storyCover
+  }
 
+  res.send(await Storys.find(query))
+})
 router.get('/:storyName', (req, res) => {
   const story = Storys.find(findStory => findStory.storyName == req.params.storyName)
 

@@ -9,7 +9,7 @@ const Report = require('../models/report')
 
 router.get('/', async (req, res) => {
   const storys = await Story.find({})
-  res.render('index', { storys })
+  res.send('index', { storys })
 })
 
 // ///////// db init content
