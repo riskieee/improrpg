@@ -23,11 +23,6 @@ services:
       context: backend
       dockerfile: Dockerfile
     environment:
-      # only needed for cloud remote mongoDB: add own credentials
-      #- MONGODB_USERNAME=dbuser
-      #- MONGODB_PASSWORD=dbpassword
-      #- MONGODB_DATABASE=mydatabase
-      # only for local mongoDB
       - MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
     labels:
       - 'traefik.enable=true'

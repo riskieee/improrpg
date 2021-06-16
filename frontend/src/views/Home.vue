@@ -26,7 +26,7 @@ export default {
     }
   },
   async created() {
-    const storysRequest = await axios.get('/api')
+    const storysRequest = await axios.get('/api/')
     this.storys.push(storysRequest.data)
   }
 }
