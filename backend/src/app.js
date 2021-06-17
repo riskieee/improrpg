@@ -16,9 +16,9 @@ const indexRouter = require('./routes/index')
 const playersRouter = require('./routes/player')
 const storysRouter = require('./routes/storys')
 
-app.use('/', indexRouter)
-app.use('/players', playersRouter)
-app.use('/storys', storysRouter)
+app.use('/api/', indexRouter)
+app.use('/api/players', playersRouter)
+app.use('/api/storys', storysRouter)
 
 // livereload setup
 if (app.get('env') == 'development') {
