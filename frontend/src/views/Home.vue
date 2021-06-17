@@ -1,6 +1,6 @@
 <template lang="pug">
   .home
-    p {{ storys }}
+    //- p {{ storys }}
     div(v-for="story in storys")
       p {{ story.storyName }}
       | has {{story.storyCover}}
@@ -27,7 +27,7 @@ export default {
   },
   async created() {
     const storysRequest = await axios.get('/api/')
-    this.storys.push(storysRequest.data)
+    this.storys = storysRequest.data.storys
   }
 }
 </script>
