@@ -32,8 +32,8 @@ export default {
               p {{ story.contentNodes.map(player => player.addingPlayer.playerName).join(', ') }}
             .d-flex.justify-content-between.align-items-center
               .btn-group
-                button.btn.btn-sm.btn-outline-primary.px-3(type='button') Join
-                button.btn.btn-sm.btn-outline-primary.px-3(type='button') Read
+                button.btn.btn-sm.btn-outline-primary.px-3(type='button' href='/story') Join
+                button.btn.btn-sm.btn-outline-primary.px-3(type='button' href='/story') Read
               small.text-muted {{ timePast }} - {{ story.lastEdit }} mins
 
 
@@ -50,7 +50,7 @@ export default {
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss" scoped>
+<style scoped lang="scss">
 h5 span {
   padding-left: 1rem;
   color: #999;

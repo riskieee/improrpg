@@ -14,6 +14,8 @@
                 li
                   router-link.text-white(to="/") Home
                 li
+                  router-link.text-white(to="/story") Story
+                li
                   router-link.text-white(to="/about") About
       .navbar.navbar-dark.bg-dark.shadow-sm
         .container

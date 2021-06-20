@@ -29,8 +29,8 @@ export default {
         p.lead.text-muted
           | improRPG is THE live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
         p
-          a.btn.btn-primary.m-2(href='#') Join
-          a.btn.btn-secondary.m-2(href='http://improrpg.localhost/api/init') INIT mongoDB
+          a.btn.btn-primary.m-2(href='/story') Join
+          a.btn.btn-secondary.m-2(href='/api/init') INIT mongoDB
 
     .home
       img.my-4(alt="Vue logo" src="../assets/logo.png")
