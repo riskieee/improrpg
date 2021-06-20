@@ -1,28 +1,17 @@
-<template lang="pug">
-  .home
-    //- p {{ storys }}
-    div(v-for="story in storys")
-      p {{ story.storyName }}
-      | has {{story.storyCover}}
-      | and {{story.participants}} as players
-    img(alt="Vue logo" src="../assets/logo.png")
-    HelloWorld(msg="Welcome to Your Vue.js App")
-
-</template>
-
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
+import StoryCard from '@/components/story-card.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    StoryCard
   },
   data() {
     return {
-      storys: []
+      storys: [],
+      time: new Date()
     }
   },
   async created() {
@@ -31,3 +20,20 @@ export default {
   }
 }
 </script>
+
+<template lang="pug">
+  section.py-5.text-center.container
+    .row.py-lg-5
+      .col-lg-6.col-md-8.mx-auto
+        h1.fw-light improRPG
+        p.lead.text-muted
+          | improRPG is THE live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
+        p
+          a.btn.btn-primary.m-2(href='#') Join
+          a.btn.btn-secondary.m-2(href='http://improrpg.localhost/api/init') INIT mongoDB
+
+    .home
+      img.my-4(alt="Vue logo" src="../assets/logo.png")
+
+    story-card(v-for="story in storys" :story="story")
+</template>

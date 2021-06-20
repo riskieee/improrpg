@@ -1,6 +1,7 @@
 // Server setup
 const createError = require('http-errors')
 const express = require('express')
+const cors = require('cors')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -10,6 +11,8 @@ require('./database-connection')
 
 // App setup
 const app = express()
+// app.use(cors({ origin: true, credentials: true }))
+// app.set('trust proxy', 1)
 
 // Route setup https://masteringjs.io/tutorials/express/app-use
 const indexRouter = require('./routes/index')
@@ -19,7 +22,6 @@ const storysRouter = require('./routes/storys')
 app.use('/api/', indexRouter)
 app.use('/api/players', playersRouter)
 app.use('/api/storys', storysRouter)
-
 // livereload setup
 if (app.get('env') == 'development') {
   /* eslint-disable-next-line */
