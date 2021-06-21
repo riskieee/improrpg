@@ -1,11 +1,12 @@
 // express setup
 const express = require('express')
+
 const router = express.Router()
 
 // app setup
-const Player = require('../models/player')
+// const Player = require('../models/player')
 const Storys = require('../models/story')
-const Content = require('../models/content')
+// const Content = require('../models/content')
 
 /* GET users listing. */
 // router.get('/', (req, res) => {
@@ -30,11 +31,22 @@ router.get('/', async (req, res) => {
 
   res.send(await Storys.find(query))
 })
-router.get('/:storyName', (req, res) => {
-  const story = Storys.find(findStory => findStory.storyName == req.params.storyName)
-
-  if (story) res.render('story', { story })
+router.get('/:storyId', async (req, res) => {
+  const story = await Storys.findById(req.params.storyId)
+  if (story) res.send(story)
   else res.sendStatus(404)
 })
+
+router.get('/:userId/json', async (req, res) => {
+  const story = await Storys.findById(req.params.userId)
+  res.send(story)
+})
+
+// router.get('/:storyName', (req, res) => {
+//   const story = Storys.find(findStory => findStory.storyName == req.params.storyName)
+
+//   if (story) res.render('story', { story })
+//   else res.sendStatus(404)
+// })
 
 module.exports = router

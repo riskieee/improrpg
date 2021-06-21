@@ -1,7 +1,10 @@
 module.exports = {
   devServer: {
-    disableHostCheck: true
+    public: 'improrpg.localhost',
+    disableHostCheck: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   },
-
   lintOnSave: false
 }

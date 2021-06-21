@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
-const Content = require('./content')
+// const Content = require('./content')
 
 const storySchema = new mongoose.Schema({
   storyName: {

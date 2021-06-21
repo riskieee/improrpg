@@ -1,18 +1,22 @@
 <script>
 // @ is an alias to /src
-import axios from 'axios'
 // import StoryCard from '@/components/story-card.vue'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'Story',
+  name: 'StoryDetail',
+  props: ['story'],
   data() {
     return {
-      storys: []
+      story: null,
+      defaultText: 'Text is to provide later ...'
     }
   },
   async created() {
-    const storysRequest = await axios.get('/api/')
-    this.storys = storysRequest.data.storys
+    this.story = await this.fetchStory(this.$route.params.id)
+  },
+  methods: {
+    ...mapActions(['fetchStory'])
   }
 }
 </script>
@@ -89,8 +93,11 @@ export default {
             .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
               .selected-user
                 span
-                  | Story:
-                  span.name Messenger of Doom
+                  | Story: !!!
+                  span.name {{ story.storyName }}
+                  | Theme: doctype html
+                  span.name {{ story.storyTheme.join(', ') }}
+
               .chat-container
                 ul.chat-box.chatContainerScroll
                   li.chat-left

@@ -1,22 +1,22 @@
 <script>
 // @ is an alias to /src
-import axios from 'axios'
 import StoryCard from '@/components/story-card.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
-  components: {
-    StoryCard
-  },
+  components: { StoryCard },
   data() {
     return {
-      storys: [],
+      storys: null,
       time: new Date()
     }
   },
   async created() {
-    const storysRequest = await axios.get('/api/')
-    this.storys = storysRequest.data.storys
+    this.storys = await this.fetchStorys(this.$route.params.id)
+  },
+  methods: {
+    ...mapActions(['fetchStorys'])
   }
 }
 </script>
@@ -29,11 +29,12 @@ export default {
         p.lead.text-muted
           | improRPG is THE live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
         p
-          a.btn.btn-primary.m-2(href='/story') Join
+          a.btn.btn-primary.m-2(href='/story-detail') Join
           a.btn.btn-secondary.m-2(href='/api/init') INIT mongoDB
 
     .home
       img.my-4(alt="Vue logo" src="../assets/logo.png")
-
-    story-card(v-for="story in storys" :story="story")
+      div(v-for="story in storys")
+        //- router-link(:to="`/storys/${story._id}`") {{ story.storyName }}
+        story-card(v-for="story in storys" :story="story")
 </template>
