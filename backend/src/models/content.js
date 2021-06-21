@@ -9,7 +9,8 @@ const ContentSchema = new mongoose.Schema({
   addingPlayer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Player',
-    required: true
+    required: true,
+    autopopulate: true
   },
   contentNode: {
     type: String,

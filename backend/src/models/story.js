@@ -34,7 +34,7 @@ const storySchema = new mongoose.Schema({
   ],
   lastEdit: {
     type: Date,
-    default: Date.now
+    default: Date(Date.now)
   }
 })
 
