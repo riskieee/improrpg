@@ -15,11 +15,11 @@ export default new Vuex.Store({
   mutations: {},
   actions: {
     async fetchStory(store, id) {
-      const storyRequest = await axios.get(`/api/storys/${id}`)
+      const storyRequest = await axios.get(`/api/stories/${id}`)
       return storyRequest.data
     },
     async fetchStorys() {
-      const storysRequest = await axios.get('/api/')
+      const storysRequest = await axios.get('/api/stories')
       return storysRequest.data
     }
   },

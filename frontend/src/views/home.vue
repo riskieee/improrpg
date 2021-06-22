@@ -8,7 +8,7 @@ export default {
   components: { StoryCard },
   data() {
     return {
-      storys: null,
+      storys: [],
       time: new Date()
     }
   },
@@ -33,8 +33,6 @@ export default {
           a.btn.btn-secondary.m-2(href='/api/init') INIT mongoDB
 
     .home
-      img.my-4(alt="Vue logo" src="../assets/logo.png")
-      div(v-for="story in storys")
-        //- router-link(:to="`/storys/${story._id}`") {{ story.storyName }}
-        story-card(v-for="story in storys" :story="story")
+      img.my-4(alt="Vue logo" src="/img/logo.png")
+      story-card(v-for="story in storys" :story="story")
 </template>

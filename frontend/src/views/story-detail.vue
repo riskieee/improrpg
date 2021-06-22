@@ -50,42 +50,42 @@ export default {
                 ul.users
                   li.person(data-chat='person1')
                     .user
-                      img(src='../assets/avatar/avatar3.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                       span.status.busy
                     p.name-time
                       span.name Luphus
                       span.time 15/09/2021
                   li.person(data-chat='person1')
                     .user
-                      img(src='../assets/avatar/avatar1.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar1.png' alt='Retail Admin')
                       span.status.offline
                     p.name-time
                       span.name Erion
                       span.time 15/09/2021
                   li.person.active-user(data-chat='person2')
                     .user
-                      img(src='../assets/avatar/avatar2.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar2.png' alt='Retail Admin')
                       span.status.away
                     p.name-time
                       span.name Selfil
                       span.time 12/09/2021
                   li.person(data-chat='person3')
                     .user
-                      img(src='../assets/avatar/avatar4.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar4.png' alt='Retail Admin')
                       span.status.busy
                     p.name-time
                       span.name Dharzeth
                       span.time 11/09/2021
                   li.person(data-chat='person4')
                     .user
-                      img(src='../assets/avatar/avatar7.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar7.png' alt='Retail Admin')
                       span.status.offline
                     p.name-time
                       span.name Lisla
                       span.time 08/09/2021
                   li.person(data-chat='person5')
                     .user
-                      img(src='../assets/avatar/avatar5.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar5.png' alt='Retail Admin')
                       span.status.away
                     p.name-time
                       span.name Michelangelo
@@ -93,16 +93,14 @@ export default {
             .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
               .selected-user
                 span
-                  | Story: !!!
-                  span.name {{ story.storyName }}
-                  | Theme: doctype html
-                  span.name {{ story.storyTheme.join(', ') }}
+                  span.name {{ story.storyName }} &nbsp;
+                  span ({{ story.storyTheme.join(', ') }})
 
               .chat-container
                 ul.chat-box.chatContainerScroll
                   li.chat-left
                     .chat-avatar
-                      img(src='../assets/avatar/avatar3.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                       .chat-name Luphus
                     .chat-text
                       | Your uncle asked you to bring a tied package to his br0other in the next village. Your journey begins today. You have packed a backpack with food, a change clothes, some tools, a knife, a blanket, rope and a tent. The weather is good and you set off.
@@ -116,11 +114,11 @@ export default {
                     .chat-text
                       | Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.
                     .chat-avatar
-                      img(src='../assets/avatar/avatar3.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                       .chat-name Luphus
                   li.chat-left
                     .chat-avatar
-                      img(src='../assets/avatar/avatar3.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                       .chat-name Luphus
                     .chat-text They are 5 paths. What they be? You look around and see 5 Options.
                     .chat-hour
@@ -132,11 +130,11 @@ export default {
                       span.fa.fa-check-circle
                     .chat-text Well I am not sure. They may be a dark dangerous forest?
                     .chat-avatar
-                      img(src='../assets/avatar/avatar5.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar5.png' alt='Retail Admin')
                       .chat-name Michelangelo
                   li.chat-left
                     .chat-avatar
-                      img(src='../assets/avatar/avatar3.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                       .chat-name Russell
                     .chat-text Ok! Lets go for a angerous forest! Anybody else wit another path?
                     .chat-hour
@@ -148,11 +146,11 @@ export default {
                       span.fa.fa-check-circle
                     .chat-text Hob about back to the village? Maybe to ask for some guardians?
                     .chat-avatar
-                      img(src='../assets/avatar/avatar4.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar4.png' alt='Retail Admin')
                       .chat-name Jin
                   li.chat-left
                     .chat-avatar
-                      img(src='../assets/avatar/avatar3.png' alt='Retail Admin')
+                      img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                       .chat-name Luphus
                     .chat-text OK, why not. Back to the village for
                     .chat-hour
