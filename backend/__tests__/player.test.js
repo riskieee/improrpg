@@ -10,7 +10,7 @@ describe('Player endpoints', () => {
       playerMail: 'bobo@play.it'
     }
 
-    const createdUser = (await request(app).post('/players').send(playerToCreate)).body
+    const createdUser = (await request(app).post('/api/players').send(playerToCreate)).body
     expect(createdUser.playerName).toBe(playerToCreate.playerName)
     expect(createdUser.playerPreferences).toBe(playerToCreate.playerPreferences)
     expect(createdUser.playerMail).toBe(playerToCreate.playerMail)

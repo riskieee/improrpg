@@ -17,11 +17,11 @@ const app = express()
 // Route setup https://masteringjs.io/tutorials/express/app-use
 const indexRouter = require('./routes/index')
 const playersRouter = require('./routes/player')
-const storysRouter = require('./routes/storys')
+const storiesRouter = require('./routes/stories')
 
 app.use('/api/', indexRouter)
 app.use('/api/players', playersRouter)
-app.use('/api/storys', storysRouter)
+app.use('/api/stories', storiesRouter)
 // livereload setup
 if (app.get('env') == 'development') {
   /* eslint-disable-next-line */

@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  //- p #{storys}
+  //- p #{stories}
   h1 Join a Story
-  p We have great storys you should join!
+  p We have great stories you should join!
   .album.py-2.bg-light
     .container
-      if storys == undefined
-        h1 No storys yet...  Please visit us later (ʘ‿ʘ)╯
+      if stories == undefined
+        h1 No stories yet...  Please visit us later (ʘ‿ʘ)╯
       else
-        each story in storys
+        each story in stories
           .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
             .col.col-sm-12.col-md-6.col-g-5
               .card.shadow-sm

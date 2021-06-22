@@ -8,8 +8,8 @@ const Content = require('../models/content')
 const Report = require('../models/report')
 
 router.get('/', async (req, res) => {
-  const storys = await Story.find({})
-  res.send({ storys })
+  const stories = await Story.find({})
+  res.send(stories)
 })
 
 // ///////// db init content
@@ -19,7 +19,7 @@ router.get('/init', async (req, res) => {
   await Content.deleteMany()
   await Report.deleteMany()
 
-  // creating players storys content
+  // creating players stories content
 
   const playerLuphus = await Player.create({
     playerName: 'Luphus',
@@ -47,7 +47,7 @@ router.get('/init', async (req, res) => {
     playerMail: 'dharzeth@prayer.org'
   })
 
-  // creating storys
+  // creating stories
   const storyFantasy = await Story.create({
     storyName: 'MessengerOfDoom',
     storyTheme: 'Fantasy',
@@ -55,8 +55,8 @@ router.get('/init', async (req, res) => {
   })
   const storySyFy = await Story.create({ storyName: 'Aliens get lost', storyTheme: 'SyFy', storyCover: 'syfy.jpg' })
 
-  // create content for storys from class Content
-  // + player adding content to storys
+  // create content for stories from class Content
+  // + player adding content to stories
   const contents01Text01 = await Content.create({
     addingPlayer: playerLuphus,
     storyTheme: 'SyFy',
@@ -98,13 +98,5 @@ router.get('/init', async (req, res) => {
 
   res.sendStatus(200)
 })
-
-// router.post('/bootstrap', (req, res) => {
-//   res.render('bootstrap', { title: 'bootstrap' })
-// })
-
-// router.post('/bootstrap', (req, res) => {
-//   res.render('bootstrap', { title: 'bootstrap' })
-// })
 
 module.exports = router
