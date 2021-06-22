@@ -7,19 +7,19 @@ const router = express.Router()
 // const Player = require('../models/db')
 // const { request } = require('../app')
 const Players = require('../models/player')
-const Storys = require('../models/story')
+// const Stories = require('../models/story')
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
   const players = await Players.find({})
   res.render('player', { players })
   // if (req.query.storyName) {
-  //   result = Storys.filter(story => story.storyName == req.query.storyName)
+  //   result = Stories.filter(story => story.storyName == req.query.storyName)
   // }
 
   // const query = {} // initial get all
   // const players = await Person.find({})
-  // explicitly name allowed searches for safty by URL: localhost:3000/storys
+  // explicitly name allowed searches for safty by URL: localhost:3000/stories
   // if (req.query.storyName) {
   //   query.storyName = req.query.storyName
   // }
@@ -44,12 +44,12 @@ router.get('/:playerName', (req, res) => {
   else res.sendStatus(404)
 })
 
-router.get('/:storyName', (req, res) => {
-  const story = Storys.find(findStory => findStory.storyName == req.params.storyName)
+// router.get('/:storyName', (req, res) => {
+//   const story = Stories.find(findStory => findStory.storyName == req.params.storyName)
 
-  if (story) res.render('story', { story })
-  else res.sendStatus(404)
-})
+//   if (story) res.render('story', { story })
+//   else res.sendStatus(404)
+// })
 
 /* POST create a player */
 router.post('/', async (req, res) => {

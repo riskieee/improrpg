@@ -20,7 +20,7 @@
       .navbar.navbar-dark.bg-dark.shadow-sm
         .container
           a.navbar-brand.d-flex.align-items-center(href='#')
-            img.me-2(alt="improRPG DICE" src="../src/assets/logo-dice.png" width='20' height='20')
+            img.me-2(alt="improRPG DICE" src="/img/logo-dice.png" width='20' height='20')
             strong improRPG
           button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarHeader' aria-controls='navbarHeader' aria-expanded='false' aria-label='Toggle navigation')
             span.navbar-toggler-icon
@@ -57,7 +57,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background: #eee url('assets/rpgback.jpg') top left / 100% fixed no-repeat;
+  background: #eee url('/img/rpgback.jpg') top left / 100% fixed no-repeat;
 }
 .bg-dark {
   background: rgb(30, 30, 30);
