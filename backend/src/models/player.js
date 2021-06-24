@@ -1,6 +1,7 @@
 // main Story class for improRPG
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
+const passportLocalMongoose = require('passport-local-mongoose')
 
 const Content = require('./content')
 const Report = require('./report')
@@ -9,16 +10,10 @@ const Report = require('./report')
 const playerSchema = new mongoose.Schema({
   playerName: {
     type: String,
-    // unique: true,
+    unique: true,
     required: true,
     minlength: 3,
     maxlength: 30
-  },
-  playerMail: {
-    type: String,
-    minlength: 6,
-    maxlength: 40,
-    unique: true
   },
   playerPhoto: {
     type: String,
@@ -49,7 +44,6 @@ class Player {
   playerInfo() {
     return {
       playerName: this.playerName,
-      playerMail: this.playerMail,
       playerPhoto: this.playerPhoto,
       playerPreferences: this.playerPreferences,
       playerReportsLength: this.playerReports.length,
@@ -77,5 +71,8 @@ class Player {
 }
 playerSchema.loadClass(Player)
 playerSchema.plugin(autopopulate)
+playerSchema.plugin(passportLocalMongoose, {
+  playernameField: 'email'
+})
 
 module.exports = mongoose.model('Player', playerSchema)
