@@ -10,7 +10,7 @@ const mutations = {
   CREATE_STORY: 'create story'
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     count: 0,
     player: null
@@ -27,6 +27,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // counter need a POST
+
     incrementCount({ commit }) {
       commit(mutations.INCREMENT_COUNT)
     },
@@ -50,12 +52,12 @@ export default new Vuex.Store({
         throw e
       }
     },
-    async register(store, user) {
-      return axios.post('/api/account', user)
+    async register(store, player) {
+      return axios.post('/api/account', player)
     },
     async logout({ commit }) {
       await axios.delete('/api/account/session')
-      commit(mutations.SET_USER, null)
+      commit(mutations.SET_PLAYER, null)
     },
     async fetchStory(store, id) {
       const storyRequest = await axios.get(`/api/stories/${id}`)
@@ -72,3 +74,8 @@ export default new Vuex.Store({
   },
   modules: {}
 })
+
+export default async function init() {
+  await store.dispatch('fetchSession')
+  return store
+}

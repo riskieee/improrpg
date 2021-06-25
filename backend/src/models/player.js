@@ -72,7 +72,7 @@ class Player {
 playerSchema.loadClass(Player)
 playerSchema.plugin(autopopulate)
 playerSchema.plugin(passportLocalMongoose, {
-  playernameField: 'email'
+  usernameField: 'email'
 })
 
 module.exports = mongoose.model('Player', playerSchema)

@@ -8,7 +8,7 @@ export default {
   components: { PlayerCard, Counter },
   data() {
     return {
-      user: null
+      player: null
     }
   },
   async created() {

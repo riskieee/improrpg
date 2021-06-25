@@ -6,7 +6,7 @@ const Player = require('../models/player')
 const router = express.Router()
 
 router.get('/session', (req, res) => {
-  res.send(req.session)
+  res.send(req.player) // before session
 })
 
 router.post('/', async (req, res, next) => {

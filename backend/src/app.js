@@ -22,16 +22,16 @@ const accountRouter = require('./routes/account') // AUTH
 // ----------------------------------------------------
 const app = express()
 
-// Livereload setup
+// Livereload setup ONLY FOR BACKEND VIEWS
 // ----------------------------------------------------
-if (app.get('env') == 'development') {
-  /* eslint-disable-next-line */
-  app.use(require('connect-livereload')())
-  /* eslint-disable-next-line */
-  require('livereload')
-    .createServer({ extraExts: ['pug'] })
-    .watch([`${__dirname}/public`, `${__dirname}/views`])
-}
+// if (app.get('env') == 'development') {
+//   /* eslint-disable-next-line */
+//   app.use(require('connect-livereload')())
+//   /* eslint-disable-next-line */
+//   require('livereload')
+//     .createServer({ extraExts: ['pug'] })
+//     .watch([`${__dirname}/public`, `${__dirname}/views`])
+// }
 
 // view engine setup
 // -----------------------------------------
@@ -49,7 +49,9 @@ app.use(cookieParser())
 app.use(
   session({
     secret: ['thisisnotasupersecuresecretsecret', 'thisisanothersupernotsosecretsecret'],
-    store: new MongoStore({ mongoUrl: process.env.MONGODB_CONNECTION_STRING, stringify: false }),
+    // store: new MongoStore({ mongoUrl: process.env.MONGODB_CONNECTION_STRING, stringify: false }),
+    // store: new MongoStore({ mongoUrl: mongooseConnection, stringify: false }),
+    store: new MongoStore({ mongoUrl: 'mongodb://mongo/improrpg', stringify: false }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in ms
       path: '/api'
