@@ -9,6 +9,7 @@ router.get('/session', (req, res) => {
   res.send(req.player) // before session
 })
 
+// seems not work
 router.post('/', async (req, res, next) => {
   const { playerName, email, password } = req.body
 
@@ -19,6 +20,19 @@ router.post('/', async (req, res, next) => {
     next(e)
   }
 })
+
+// tried but didnt work
+// router.post('/register', async (req, res, next) {
+//   console.log('registering user')
+//   Account.register(new Account({ username: req.body.username }), req.body.password, function (err) {
+//     if (err) {
+//       console.log('error while user register!', err)
+//       return next(err)
+//     }
+//     console.log('user registered!')
+//     res.redirect('/')
+//   })
+// })
 
 router.post('/session', passport.authenticate('local', { failWithError: true }), async (req, res) => {
   res.send(req.player)
