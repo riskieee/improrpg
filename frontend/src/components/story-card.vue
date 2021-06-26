@@ -24,16 +24,18 @@ export default {
           img.card-img-top(width='100%' height='225' :src='`/img/${ story.storyCover }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
           .card-body
             p.card-text
-            p {{ story.storyCover }}
               h5 {{ story.storyName }}
                 span {{ story.storyTheme }}
+                //- span(v-for="themes in story.storyTheme")  // should work
+
               //-  {{ story.contentNodes.map(item => item.contentNode).join(' ') }}
               //-  {{ story.contentNodes.map(player => player.addingPlayer.playerName).join(', ') }}
             .d-flex.justify-content-between.align-items-center
               .btn-group
                 router-link.btn.btn-sm.btn-outline-primary.px-3(type='button' :to="`/stories/${story._id}`") Read
                 button.btn.btn-sm.btn-outline-primary.px-3(type='button' href='/story') Join
-              small.text-muted {{ timePast }} - {{ story.lastEdit }} mins
+              small.text-muted {{ timePast - story.lastEdit.getTime() }} mins
+              //- small.text-muted {{ story.lastEdit }} mins
 
 
   //- OLD REMOVE
