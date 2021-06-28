@@ -7,12 +7,13 @@ const Story = require('../models/story')
 const Content = require('../models/content')
 const Report = require('../models/report')
 
+// get homepage
 router.get('/', async (req, res) => {
   const stories = await Story.find({})
   res.send(stories)
 })
 
-// ///////// db init content
+// db init content
 router.get('/init', async (req, res) => {
   await Player.deleteMany()
   await Story.deleteMany()
@@ -20,32 +21,50 @@ router.get('/init', async (req, res) => {
   await Report.deleteMany()
 
   // creating players stories content
-
   const playerLuphus = await Player.create({
     playerName: 'Luphus',
     playerPreferences: ['Fantasy', 'SyFy'],
-    playerMail: 'luphus@payer.com'
+    playerPhoto: 'avatar3.png',
+    email: 'luphus@payer.com'
   })
+  await playerLuphus.setPassword('test')
+  await playerLuphus.save()
+
   const playerErion = await Player.create({
     playerName: 'Erion',
     playerPreferences: ['Fantasy', 'Horror'],
-    playerMail: 'erison@plaer.de'
+    playerPhoto: 'avatar5.png',
+    email: 'erison@plaer.de'
   })
+  await playerErion.setPassword('test')
+  await playerErion.save()
+
   const playerSelfil = await Player.create({
     playerName: 'Selfil',
     playerPreferences: ['Fantasy'],
-    playerMail: 'Selfil@payer.at'
+    playerPhoto: 'avatar1.png',
+    email: 'Selfil@payer.at'
   })
+  await playerSelfil.setPassword('test')
+  await playerSelfil.save()
+
   const playerLisla = await Player.create({
     playerName: 'Lisla',
     playerPreferences: ['SyFy', 'Love'],
-    playerMail: 'lisla@prayer.it'
+    playerPhoto: 'avatar8.png',
+    email: 'lisla@prayer.it'
   })
+  await playerLisla.setPassword('test')
+  await playerLisla.save()
+
   const playerDharzeth = await Player.create({
     playerName: 'Dharzeth',
     playerPreferences: ['SyFy'],
-    playerMail: 'dharzeth@prayer.org'
+    playerPhoto: 'avatar7.png',
+    email: 'dharzeth@prayer.org'
   })
+  await playerDharzeth.setPassword('test')
+  await playerDharzeth.save()
 
   // creating stories
   const storyFantasy = await Story.create({
@@ -96,6 +115,9 @@ router.get('/init', async (req, res) => {
   })
   await playerDharzeth.addContent(storySyFy, contents02Text02)
 
+  console.log(storyFantasy)
+  console.log(storySyFy)
+  console.log('--------------------------', playerLuphus)
   res.sendStatus(200)
 })
 

@@ -34,7 +34,7 @@ const storySchema = new mongoose.Schema({
   ],
   lastEdit: {
     type: Date,
-    default: Date(Date.now)
+    default: Date.now
   }
 })
 
@@ -54,23 +54,6 @@ class Story {
   get storyPlayer() {
     return 'ToDo to implementent' // get addingPlayer from storyNode
   }
-
-  // as mongo is taking care no getter/setter are needed
-  // get storyName() {
-  //   return this._storyName
-  // }
-
-  // get storyCover() {
-  //   return this._storyCover
-  // }
-
-  // get lastEdit() {
-  //   return this._lastEdit
-  // }
-
-  // get contentNodes() {
-  //   return this._contentNodes
-  // }
 }
 
 storySchema.loadClass(Story)

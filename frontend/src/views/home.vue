@@ -8,15 +8,15 @@ export default {
   components: { StoryCard },
   data() {
     return {
-      storys: [],
+      stories: [],
       time: new Date()
     }
   },
   async created() {
-    this.storys = await this.fetchStorys(this.$route.params.id)
+    this.stories = await this.fetchStories(this.$route.params.id)
   },
   methods: {
-    ...mapActions(['fetchStorys'])
+    ...mapActions(['fetchStories'])
   }
 }
 </script>
@@ -34,5 +34,9 @@ export default {
 
     .home
       img.my-4(alt="Vue logo" src="/img/logo.png")
-      story-card(v-for="story in storys" :story="story")
+    .container
+      .py-5
+        .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
+          story-card(v-for="story in stories" :key='story._id' :story='story' )
+
 </template>

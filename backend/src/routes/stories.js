@@ -1,7 +1,7 @@
 // express setup
 const express = require('express')
-
 const router = express.Router()
+const axios = require('axios')
 
 // app setup
 // const Player = require('../models/player')
@@ -44,8 +44,8 @@ router.get('/:storyId', async (req, res) => {
   else res.sendStatus(404)
 })
 
-router.get('/:userId/json', async (req, res) => {
-  const story = await Stories.findById(req.params.userId)
+router.get('/:storyId/json', async (req, res) => {
+  const story = await Stories.findById(req.params.storyId)
   res.send(story)
 })
 

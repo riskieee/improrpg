@@ -24,6 +24,9 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
+      - CLOUDMERSIVE_KEY_STRING=f4c660e5-5885-4504-bc72-315948f27267
+      - CHOKIDAR_USEPOLLING=true
+    labels:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.backend.rule=(Host(`improrpg.localhost`) && PathPrefix(`/api`))'

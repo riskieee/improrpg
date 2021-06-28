@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
-const Player = require('./player')
+// const Player = require('./player')
 
 const ContentSchema = new mongoose.Schema({
   addingPlayer: {

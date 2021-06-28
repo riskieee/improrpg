@@ -1,24 +1,19 @@
 // main Story class for improRPG
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
+const passportLocalMongoose = require('passport-local-mongoose')
 
-const Content = require('./content')
+// const Content = require('./content')
 const Report = require('./report')
 // const Timestamp = require('./timestamp')
 
 const playerSchema = new mongoose.Schema({
   playerName: {
     type: String,
-    // unique: true,
+    unique: true,
     required: true,
     minlength: 3,
     maxlength: 30
-  },
-  playerMail: {
-    type: String,
-    minlength: 6,
-    maxlength: 40,
-    unique: true
   },
   playerPhoto: {
     type: String,
@@ -39,6 +34,10 @@ const playerSchema = new mongoose.Schema({
       autopopulate: true
     }
   ],
+  playerCreated: {
+    type: Date,
+    default: Date.now
+  },
   playerLastActive: {
     type: Date,
     default: Date.now
@@ -49,7 +48,6 @@ class Player {
   playerInfo() {
     return {
       playerName: this.playerName,
-      playerMail: this.playerMail,
       playerPhoto: this.playerPhoto,
       playerPreferences: this.playerPreferences,
       playerReportsLength: this.playerReports.length,
@@ -60,11 +58,13 @@ class Player {
 
   async joinStory(storyToJoin) {
     storyToJoin.participants.push(this)
+    this.playerLastActive = Date.now
     await storyToJoin.save()
   }
 
   async addContent(currentStory, toAddContentNode) {
     currentStory.contentNodes.push(toAddContentNode)
+    this.playerLastActive = Date.now
     await currentStory.save()
     return currentStory
   }
@@ -77,5 +77,8 @@ class Player {
 }
 playerSchema.loadClass(Player)
 playerSchema.plugin(autopopulate)
+playerSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email'
+})
 
 module.exports = mongoose.model('Player', playerSchema)
