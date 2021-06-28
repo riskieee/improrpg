@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/home.vue'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
-import PlayerList from '../views/player-list.vue'
+import PlayerDetail from '../views/player-detail.vue'
+// import PlayerList from '../views/player-list.vue'
 
 Vue.use(VueRouter)
 
@@ -38,25 +39,26 @@ export default function init(store) {
         name: 'register',
         component: Register,
         beforeEnter(to, from, next) {
-          if (store.state.player) return next('/profile')
+          if (store.state.player) return next('/player-detail')
           return next()
         }
+      },
+      {
+        path: '/player-detail',
+        name: 'player-detail',
+        component: PlayerDetail
+        // beforeEnter(to, from, next) {
+        //   if (!store.state.player) return next('/login')
+        //   return next()
+        // }
       },
       {
         path: '/login',
         name: 'login',
         component: Login,
         beforeEnter(to, from, next) {
-          if (store.state.player) return next('/profile')
-          return next()
-        }
-      },
-      {
-        path: '/profile',
-        name: 'profile',
-        component: PlayerList,
-        beforeEnter(to, from, next) {
-          if (!store.state.player) return next('/login')
+          // if (store.state.player) return next('/player-detail')
+          if (store.state.player) return next('/')
           return next()
         }
       },

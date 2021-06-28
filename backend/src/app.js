@@ -51,7 +51,8 @@ app.use(
     secret: ['thisisnotasupersecuresecretsecret', 'thisisanothersupernotsosecretsecret'],
     // store: new MongoStore({ mongoUrl: process.env.MONGODB_CONNECTION_STRING, stringify: false }),
     // store: new MongoStore({ mongoUrl: mongooseConnection, stringify: false }),
-    store: new MongoStore({ mongoUrl: 'mongodb://mongo/improrpg', stringify: false }),
+    // store: new MongoStore({ mongoUrl: 'mongodb://mongo/improrpg', stringify: false }),
+    store: MongoStore.create({ mongoUrl: mongooseConnection._connectionString, stringify: false }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in ms
       path: '/api'

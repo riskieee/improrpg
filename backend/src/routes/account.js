@@ -6,7 +6,7 @@ const Player = require('../models/player')
 const router = express.Router()
 
 router.get('/session', (req, res) => {
-  res.send(req.player) // before session
+  res.send(req.user) // before session
 })
 
 // seems not work
@@ -34,8 +34,9 @@ router.post('/', async (req, res, next) => {
 //   })
 // })
 
+// AUTH session management
 router.post('/session', passport.authenticate('local', { failWithError: true }), async (req, res) => {
-  res.send(req.player)
+  res.send(req.user)
 })
 
 router.delete('/session', async (req, res, next) => {

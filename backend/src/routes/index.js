@@ -24,6 +24,7 @@ router.get('/init', async (req, res) => {
   const playerLuphus = await Player.create({
     playerName: 'Luphus',
     playerPreferences: ['Fantasy', 'SyFy'],
+    playerPhoto: 'avatar3.png',
     email: 'luphus@payer.com'
   })
   await playerLuphus.setPassword('test')
@@ -32,6 +33,7 @@ router.get('/init', async (req, res) => {
   const playerErion = await Player.create({
     playerName: 'Erion',
     playerPreferences: ['Fantasy', 'Horror'],
+    playerPhoto: 'avatar5.png',
     email: 'erison@plaer.de'
   })
   await playerErion.setPassword('test')
@@ -40,6 +42,7 @@ router.get('/init', async (req, res) => {
   const playerSelfil = await Player.create({
     playerName: 'Selfil',
     playerPreferences: ['Fantasy'],
+    playerPhoto: 'avatar1.png',
     email: 'Selfil@payer.at'
   })
   await playerSelfil.setPassword('test')
@@ -48,6 +51,7 @@ router.get('/init', async (req, res) => {
   const playerLisla = await Player.create({
     playerName: 'Lisla',
     playerPreferences: ['SyFy', 'Love'],
+    playerPhoto: 'avatar8.png',
     email: 'lisla@prayer.it'
   })
   await playerLisla.setPassword('test')
@@ -56,6 +60,7 @@ router.get('/init', async (req, res) => {
   const playerDharzeth = await Player.create({
     playerName: 'Dharzeth',
     playerPreferences: ['SyFy'],
+    playerPhoto: 'avatar7.png',
     email: 'dharzeth@prayer.org'
   })
   await playerDharzeth.setPassword('test')
@@ -112,6 +117,7 @@ router.get('/init', async (req, res) => {
 
   console.log(storyFantasy)
   console.log(storySyFy)
+  console.log('--------------------------', playerLuphus)
   res.sendStatus(200)
 })
 

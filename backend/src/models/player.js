@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 const passportLocalMongoose = require('passport-local-mongoose')
 
-const Content = require('./content')
+// const Content = require('./content')
 const Report = require('./report')
 // const Timestamp = require('./timestamp')
 
@@ -34,6 +34,10 @@ const playerSchema = new mongoose.Schema({
       autopopulate: true
     }
   ],
+  playerCreated: {
+    type: Date,
+    default: Date.now
+  },
   playerLastActive: {
     type: Date,
     default: Date.now
@@ -54,11 +58,13 @@ class Player {
 
   async joinStory(storyToJoin) {
     storyToJoin.participants.push(this)
+    this.playerLastActive = Date.now
     await storyToJoin.save()
   }
 
   async addContent(currentStory, toAddContentNode) {
     currentStory.contentNodes.push(toAddContentNode)
+    this.playerLastActive = Date.now
     await currentStory.save()
     return currentStory
   }

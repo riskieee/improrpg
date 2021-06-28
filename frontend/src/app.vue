@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -9,6 +9,9 @@ export default {
       await this.logout()
       this.$router.push('/login')
     }
+  },
+  computed: {
+    ...mapState(['player'])
   }
 }
 </script>
@@ -20,7 +23,7 @@ export default {
           .row
             .col-sm-8.col-md-7.py-4
               h4.text-white About
-              p.text-muted
+              p.text-white
                 | improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
             .col-sm-4.offset-md-1.py-4
               h4.text-white &nbsp;
@@ -32,16 +35,16 @@ export default {
                 li
                   router-link.text-white(to="/about") About
                 li
-                  router-link(to="/profile") Profile
+                  router-link.text-white(to="/player-detail") PlyerDetail
                 li
-                  router-link(to="/login") Login
+                  router-link.text-white(to="/login") Login
                 li
-                  router-link(to="/register") Register
+                  router-link.text-white(to="/register") Register
                 li
-                  a(@click="doLogout" href="#") Logout
+                  a.text-white(@click="doLogout" href="/") Logout
       .navbar.navbar-dark.bg-dark.shadow-sm
         .container
-          a.navbar-brand.d-flex.align-items-center(href='#')
+          a.navbar-brand.d-flex.align-items-center(href='/')
             img.me-2(alt="improRPG DICE" src="/img/logo-dice.png" width='20' height='20')
             strong improRPG
           button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarHeader' aria-controls='navbarHeader' aria-expanded='false' aria-label='Toggle navigation')
@@ -51,7 +54,7 @@ export default {
     footer.text-muted.py-5.bg-dark
       .container
         p.float-end.mb-1
-          a(href='#') ^ Back to top
+          a(href='') ^ Back to top
         p.mb-1
           | improRPG is &copy; by Robert Karpinski but free to use on &nbsp;
           a(href='https://github.com/riskieee/improrpg') GitHub

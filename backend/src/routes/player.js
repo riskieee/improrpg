@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
 router.get('/:playerName', (req, res) => {
   const player = Player.find(findPlayer => findPlayer.playerName == req.params.playerName)
 
-  if (player) res.render('player', { player })
+  if (player) res.send(player)
   else res.sendStatus(404)
 })
 

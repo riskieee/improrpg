@@ -23,7 +23,7 @@ export default {
 <template lang="pug">
   .home
     h1 improRPG
-    p The time is: {{ time }}
+    //- p The time is: {{ time }}
     h2 Players
     div(v-for="player in players")
       router-link(:to="`/players/${player._id}`") {{ player.playerName }}

@@ -63,12 +63,12 @@ const store = new Vuex.Store({
       const storyRequest = await axios.get(`/api/stories/${id}`)
       return storyRequest.data
     },
-    async fetchStorys() {
+    async fetchStories() {
       const storysRequest = await axios.get('/api/stories')
       return storysRequest.data
     },
-    async createStory({ commit }, credentials) {
-      const story = await axios.post('/api/storys', credentials)
+    async createStories({ commit }, credentials) {
+      const story = await axios.post('/api/stories', credentials)
       commit(mutations.CREATE_STORY, story.data)
     }
   },
