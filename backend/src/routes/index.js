@@ -1,6 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
+const axios = require('axios')
 
 const Player = require('../models/player')
 const Story = require('../models/story')
@@ -41,7 +42,7 @@ router.get('/init', async (req, res) => {
 
   const playerSelfil = await Player.create({
     playerName: 'Selfil',
-    playerPreferences: ['Fantasy'],
+    playerPreferences: ['Fantasy', 'Adventure'],
     playerPhoto: 'avatar1.png',
     email: 'Selfil@payer.at'
   })
@@ -59,7 +60,7 @@ router.get('/init', async (req, res) => {
 
   const playerDharzeth = await Player.create({
     playerName: 'Dharzeth',
-    playerPreferences: ['SyFy'],
+    playerPreferences: ['SyFy', 'Space', 'Humor'],
     playerPhoto: 'avatar7.png',
     email: 'dharzeth@prayer.org'
   })
@@ -69,16 +70,19 @@ router.get('/init', async (req, res) => {
   // creating stories
   const storyFantasy = await Story.create({
     storyName: 'MessengerOfDoom',
-    storyTheme: 'Fantasy',
+    storyTheme: ['Fantasy', 'Nature', 'Adventure'],
     storyCover: 'fantasy.jpg'
   })
-  const storySyFy = await Story.create({ storyName: 'Aliens get lost', storyTheme: 'SyFy', storyCover: 'syfy.jpg' })
+  const storySyFy = await Story.create({
+    storyName: 'Aliens get lost',
+    storyTheme: ['SyFy', 'Space'],
+    storyCover: 'syfy.jpg'
+  })
 
   // create content for stories from class Content
   // + player adding content to stories
   const contents01Text01 = await Content.create({
     addingPlayer: playerLuphus,
-    storyTheme: 'SyFy',
     contentNode:
       'Your uncle asked you to bring a tied package to his br0other in the next village. Your journey begins today. You have packed a backpack with food, a change clothes, some tools, a knife, a blanket, rope and a tent. The weather is good and you set off.'
   })
@@ -86,7 +90,6 @@ router.get('/init', async (req, res) => {
 
   const contents01Text02 = await Content.create({
     addingPlayer: playerLuphus,
-    storyTheme: 'SyFy',
     contentNode:
       'Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.'
   })
@@ -94,14 +97,12 @@ router.get('/init', async (req, res) => {
 
   const contents01Text03 = await Content.create({
     addingPlayer: playerSelfil,
-    storyTheme: 'SyFy',
     contentNode: 'They are 5 paths. What they be? You look around and see 5 Options.'
   })
   await playerSelfil.addContent(storyFantasy, contents01Text03)
 
   const contents02Text01 = await Content.create({
     addingPlayer: playerLisla,
-    storyTheme: 'SyFy',
     contentNode:
       'You arrive on the moon for a maintenance mission. The crew is eagerly awaiting you, as they have already air losses. The technician asks you to follow him right away.'
   })
@@ -109,15 +110,14 @@ router.get('/init', async (req, res) => {
 
   const contents02Text02 = await Content.create({
     addingPlayer: playerDharzeth,
-    storyTheme: 'SyFy',
     contentNode:
       'You move weightlessly through the entire ship and can already see more tasks for later. The impact of the satellite has left not only external damage you already fixed... You reach the place with the micro hole. What do you want to do?'
   })
   await playerDharzeth.addContent(storySyFy, contents02Text02)
 
-  console.log(storyFantasy)
-  console.log(storySyFy)
-  console.log('--------------------------', playerLuphus)
+  // console.log(storyFantasy)
+  // console.log(storySyFy)
+  // console.log('--------------------------', playerLuphus)
   res.sendStatus(200)
 })
 
