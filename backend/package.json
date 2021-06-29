@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "cloudmersive-image-api-client": "^1.3.5",
     "colors": "^1.4.0",
     "connect-mongo": "^4.4.1",
     "cookie-parser": "~1.4.4",
