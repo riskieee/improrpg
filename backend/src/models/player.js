@@ -75,6 +75,7 @@ class Player {
     await reportedPlayer.save()
   }
 }
+
 playerSchema.loadClass(Player)
 playerSchema.plugin(autopopulate)
 playerSchema.plugin(passportLocalMongoose, {

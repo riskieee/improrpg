@@ -17,7 +17,8 @@ export default {
 //- h1 (v-else)
 .col
   .card.shadow-sm
-    img.card-img-top(width='100%' height='225' :src='`/img/${ story.storyCover }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+    //- img(:src="`https://picsum.photos${photo.filename}`" :alt="photo.description" :title="photo.description")
+    img.card-img-top(width='100%' height='225' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
     .card-body
       h5 {{ story.storyName }}
         p.card-text

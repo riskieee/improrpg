@@ -2,6 +2,8 @@ const express = require('express')
 
 const router = express.Router()
 const axios = require('axios')
+const describeImage = require('../lib/image-description')
+const downloadImage = require('../lib/download-image')
 
 const Player = require('../models/player')
 const Story = require('../models/story')
@@ -13,6 +15,18 @@ router.get('/', async (req, res) => {
   const stories = await Story.find({})
   res.send(stories)
 })
+
+// loading PICSUM images
+async function createContentPhoto(photoFilename, addingPlayer) {
+  const photoContent = await Content.create({ photoFilename, addingPlayer })
+  const picsumUrl = `https://picsum.photos/seed/${photoContent._id}/300/300`
+  const pictureRequest = await axios.get(picsumUrl)
+  photoContent.photoFilename = pictureRequest.request.path
+  const imagePath = await downloadImage(picsumUrl, photoFilename)
+  const description = await describeImage(imagePath)
+  photoContent.description = description.BestOutcome.Description
+  return photoContent.save()
+}
 
 // db init content
 router.get('/init', async (req, res) => {
@@ -69,7 +83,7 @@ router.get('/init', async (req, res) => {
 
   // creating stories
   const storyFantasy = await Story.create({
-    storyName: 'MessengerOfDoom',
+    storyName: 'Messenger Of Doom',
     storyTheme: ['Fantasy', 'Nature', 'Adventure'],
     storyCover: 'fantasy.jpg'
   })
@@ -114,6 +128,13 @@ router.get('/init', async (req, res) => {
       'You move weightlessly through the entire ship and can already see more tasks for later. The impact of the satellite has left not only external damage you already fixed... You reach the place with the micro hole. What do you want to do?'
   })
   await playerDharzeth.addContent(storySyFy, contents02Text02)
+
+  // adding photo Content
+  const fantasyPhoto = await createContentPhoto('fantasy.jpg', playerSelfil)
+  await playerSelfil.addContent(storyFantasy, fantasyPhoto)
+
+  const syfyPhoto = await createContentPhoto('syfy.jpg', playerLisla)
+  await playerLisla.addContent(storySyFy, syfyPhoto)
 
   // console.log(storyFantasy)
   // console.log(storySyFy)

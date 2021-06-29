@@ -3,18 +3,21 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
-// const Player = require('./player')
-
 const ContentSchema = new mongoose.Schema({
   addingPlayer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Player',
     required: true,
-    autopopulate: true
+    autopopulate: { maxDepth: 2 }
   },
   contentNode: {
-    type: String,
-    required: true
+    type: String
+  },
+  photoFilename: {
+    type: String
+  },
+  photoDescription: {
+    type: String
   }
 })
 

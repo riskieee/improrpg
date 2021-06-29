@@ -27,12 +27,12 @@ const server = http.createServer(app)
  * Socket IO init
  */
 
-app.get('io').attach(server, {
-  cors: {
-    origin: true,
-    credentials: true
-  }
-})
+// app.get('io').attach(server, {
+//   cors: {
+//     origin: true,
+//     credentials: true
+//   }
+// })
 
 /**
  * Listen on provided port, on all network interfaces.
