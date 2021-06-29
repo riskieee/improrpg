@@ -24,7 +24,7 @@ async function createContentPhoto(photoFilename, addingPlayer) {
   photoContent.photoFilename = pictureRequest.request.path
   const imagePath = await downloadImage(picsumUrl, photoFilename)
   const description = await describeImage(imagePath)
-  photoContent.description = description.BestOutcome.Description
+  photoContent.photoDescription = description.BestOutcome.Description
   return photoContent.save()
 }
 

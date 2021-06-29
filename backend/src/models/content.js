@@ -18,6 +18,10 @@ const ContentSchema = new mongoose.Schema({
   },
   photoDescription: {
     type: String
+  },
+  contentCreateDate: {
+    type: Date,
+    default: Date.now
   }
 })
 

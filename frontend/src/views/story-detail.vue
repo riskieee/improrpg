@@ -23,7 +23,7 @@ export default {
 
 <template lang="pug">
 div
-  .container(v-if="!story") no story yet
+  .container(v-if="!story") There is no story yet!
   .container(v-else)
 
     // Page header start
@@ -50,6 +50,7 @@ div
                         button.btn.btn-info(type='button')
                           i.fa.fa-search
                   ul.users
+                    img(width='100%' height='auto' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
                     li.person(v-for="node in story.contentNodes")
                       .user
                         img(:src='`/img/avatar/${node.addingPlayer.playerPhoto}`' :title='`${node.addingPlayer.playerName }`' :alt='`${node.addingPlayer.playerName }`')
@@ -66,64 +67,27 @@ div
 
                 .chat-container
                   ul.chat-box.chatContainerScroll
-                    li.chat-left
+                    li.chat-left(v-for="cont in story.contentNodes")
                       .chat-avatar
-                        img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                        .chat-name Luphus
-                      .chat-text
-                        | Your uncle asked you to bring a tied package to his br0other in the next village. Your journey begins today. You have packed a backpack with food, a change clothes, some tools, a knife, a blanket, rope and a tent. The weather is good and you set off.
+                        img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
+                        .chat-name {{ cont.addingPlayer.playerName }}
+                      .chat-text(v-if="cont.contentNode")
+                        | {{ cont.contentNode }}
+                      .chat-text(v-else)
+                        img(width='100%' height='200px' :src='`https://picsum.photos/${ cont.photoFilename }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+                        p {{ cont.photoDescription }}
                       .chat-hour
-                        | 08:55
+                        | {{ cont.contentCreateDate }}
                         span.fa.fa-check-circle
-                    li.chat-right
-                      .chat-hour
-                        | 08:56
-                        span.fa.fa-check-circle
-                      .chat-text
-                        | Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.
-                      .chat-avatar
-                        img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                        .chat-name Luphus
-                    li.chat-left
-                      .chat-avatar
-                        img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                        .chat-name Luphus
-                      .chat-text They are 5 paths. What they be? You look around and see 5 Options.
-                      .chat-hour
-                        | 08:57
-                        span.fa.fa-check-circle
-                    li.chat-right
-                      .chat-hour
-                        | 08:59
-                        span.fa.fa-check-circle
-                      .chat-text Well I am not sure. They may be a dark dangerous forest?
-                      .chat-avatar
-                        img(src='/img/avatar/avatar5.png' alt='Retail Admin')
-                        .chat-name Michelangelo
-                    li.chat-left
-                      .chat-avatar
-                        img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                        .chat-name Russell
-                      .chat-text Ok! Lets go for a angerous forest! Anybody else wit another path?
-                      .chat-hour
-                        | 08:57
-                        span.fa.fa-check-circle
-                    li.chat-right
-                      .chat-hour
-                        | 08:59
-                        span.fa.fa-check-circle
-                      .chat-text Hob about back to the village? Maybe to ask for some guardians?
-                      .chat-avatar
-                        img(src='/img/avatar/avatar4.png' alt='Retail Admin')
-                        .chat-name Jin
-                    li.chat-left
-                      .chat-avatar
-                        img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                        .chat-name Luphus
-                      .chat-text OK, why not. Back to the village for
-                      .chat-hour
-                        | 07:00
-                        span.fa.fa-check-circle
+                    //- li.chat-right
+                    //-   .chat-hour
+                    //-     | 08:56
+                    //-     span.fa.fa-check-circle
+                    //-   .chat-text
+                    //-     | Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.
+                    //-   .chat-avatar
+                    //-     img(src='/img/avatar/avatar3.png' alt='Retail Admin')
+                    //-     .chat-name Luphus
                   .form-group.mt-3.mb-0
                     textarea.form-control(rows='3' placeholder='Type your storynotes here...')
             // Row end

@@ -3,7 +3,7 @@ const path = require('path')
 const axios = require('axios')
 
 module.exports = async function downloadImage(url, filename) {
-  const imagePath = path.resolve(__dirname, '..', '..', 'img', filename)
+  const imagePath = path.resolve(__dirname, '..', 'lib', 'img', filename)
   const writer = fs.createWriteStream(imagePath)
 
   const response = await axios({
