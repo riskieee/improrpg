@@ -12,7 +12,10 @@ const Player = require('./models/player') // AUTH!
 // mongoDB connection setup
 const mongooseConnection = require('./database-connection') // AUTH!
 
-// Route setup https://masteringjs.io/tutorials/express/app-use
+// socket.io connection setup
+const socketService = require('./socket-service')
+
+// Route setup
 const indexRouter = require('./routes/index')
 const playersRouter = require('./routes/player')
 const storiesRouter = require('./routes/stories')
@@ -32,6 +35,10 @@ const app = express()
 //     .createServer({ extraExts: ['pug'] })
 //     .watch([`${__dirname}/public`, `${__dirname}/views`])
 // }
+
+// view engine setup
+// -----------------------------------------
+app.set('io', socketService)
 
 // view engine setup
 // -----------------------------------------
@@ -87,14 +94,19 @@ app.use((req, res, next) => {
 })
 
 // error handler
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
+
+  res.send({
+    status: err.status,
+    message: err.message,
+    stack: req.app.get('env') == 'development' ? err.stack : ''
+  })
 })
 
 module.exports = app

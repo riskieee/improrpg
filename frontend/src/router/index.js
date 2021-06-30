@@ -46,19 +46,18 @@ export default function init(store) {
       {
         path: '/player-detail',
         name: 'player-detail',
-        component: PlayerDetail
-        // beforeEnter(to, from, next) {
-        //   if (!store.state.player) return next('/login')
-        //   return next()
-        // }
+        component: PlayerDetail,
+        beforeEnter(to, from, next) {
+          if (!store.state.player) return next('/login')
+          return next()
+        }
       },
       {
         path: '/login',
         name: 'login',
         component: Login,
         beforeEnter(to, from, next) {
-          // if (store.state.player) return next('/player-detail')
-          if (store.state.player) return next('/')
+          if (store.state.player) return next('/player-detail')
           return next()
         }
       },
