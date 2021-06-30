@@ -85,6 +85,7 @@
     "passport-local-mongoose": "^6.1.0",
     "pug": "^3.0.2",
     "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.1.2",
     "supertest": "^6.1.3"
   }
 }

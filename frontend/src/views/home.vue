@@ -40,3 +40,5 @@ export default {
           story-card(v-for="story in stories" :key='story._id' :story='story' )
 
 </template>
+
+<style lang="scss"></style>

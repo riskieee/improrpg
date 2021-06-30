@@ -7,28 +7,69 @@ export default {
   name: 'PlayerDetail',
   data() {
     return {
-      // player: null
+      players: [],
+      time: new Date(),
+      message: ''
     }
   },
-  // components: { PlayerCard, Counter },
-  components: { PlayerCard },
-  // components: { Counter },
-  // async created() {
-  //   this.player = await this.fetchPlayer(this.$route.params.id)
-  // },
-  // methods: {
-  //   ...mapActions(['fetchPlayer'])
-  // },
+  components: { PlayerCard, Counter },
+  async created() {
+    this.players = await this.fetchPlayers()
+  },
+  methods: {
+    ...mapActions(['fetchPlayers', 'goLive', 'sendMessageToLiveStream', 'joinStream']),
+    sendMessage(e) {
+      e.preventDefault()
+      this.sendMessageToLiveStream(this.message)
+      this.message = ''
+    }
+  },
   computed: {
-    ...mapState(['player'])
+    ...mapState(['currentLiveStream', 'liveStreams', 'player', 'liveStreamMessages'])
   }
 }
 </script>
 
 <template lang="pug">
-  .about
-    h1 Player Detail
+  div.player-detail
+    h2.m-3 Player Detail
     PlayerCard(v-if="player" :player="player" )
-
+    //- h2 Users
+    //- span(v-for="player in players")
+    //-   router-link(:to="`/players/${player._id}`") {{ player.playerName }} &nbsp;
+    div(v-if="liveStreams.length")
+      h2 Live streams
+      div(v-for="stream in liveStreams")
+        p {{ stream }}
+        button.btn.btn-primary.m-2(@click="joinStream(stream)") Join Chat
+    div.bd-chatbox
+      button.btn.btn-primary.m-2(v-if="!currentLiveStream" @click="goLive") Start Chat
+      div(v-if="currentLiveStream")
+        h3 Live stream
+        .messages.container
+          .message(v-for="message in liveStreamMessages")
+            div.input-group.mb-3
+              span.input-group-text {{ message.author }}:
+              span.form-control {{ message.body }}
+        .container
+          form.input-group.mb-3(@submit="sendMessage")
+            button.btn.btn-primary(type="submit" value="Send message") SEND MESSAGE
+            input.form-control.form-control(type="text" v-model="message")
     //- Counter
 </template>
+
+<style lang="scss">
+.bd-chatbox {
+  background-color: rgba(100, 100, 100, 0.125);
+  padding: 1.5rem;
+  margin: 1rem -0.75rem 0;
+  margin-right: 0;
+  margin-left: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.input-group span {
+  text-align: left;
+}
+</style>

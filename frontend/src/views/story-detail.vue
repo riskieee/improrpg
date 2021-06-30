@@ -58,13 +58,11 @@ div
                       p.name-time
                         span.name {{node.addingPlayer.playerName }}
                       //-   span.time 15/09/2021
-
               .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
                 .selected-user
                   span
                     span.name {{ story.storyName }} &nbsp;
                     span.theme ({{ story.storyTheme.join(', ') }})
-
                 .chat-container
                   ul.chat-box.chatContainerScroll
                     li.chat-left(v-for="cont in story.contentNodes")
