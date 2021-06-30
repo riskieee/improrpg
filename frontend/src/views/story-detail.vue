@@ -65,18 +65,18 @@ div
                     span.theme ({{ story.storyTheme.join(', ') }})
                 .chat-container
                   ul.chat-box.chatContainerScroll
-                    //- li.chat-left(v-for="cont in story.contentNodes")
-                    //-   .chat-avatar
-                    //-     img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
-                    //-     .chat-name {{ cont.addingPlayer.playerName }}
-                    //-   .chat-text(v-if="cont.contentNode")
-                    //-     | {{ cont.contentNode }}
-                    //-   .chat-text(v-else)
-                    //-     img(width='100%' height='200px' :src='`https://picsum.photos/${ cont.photoFilename }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
-                    //-     p {{ cont.photoDescription }}
-                    //-   .chat-hour
-                    //-     | {{ cont.contentCreateDate }}
-                    //-     span.fa.fa-check-circle
+                    li.chat-left(v-for="cont in story.contentNodes")
+                      .chat-avatar
+                        img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
+                        .chat-name {{ cont.addingPlayer.playerName }}
+                      .chat-text(v-if="cont.contentNode")
+                        | {{ cont.contentNode }}
+                      .chat-text(v-else)
+                        img(width='100%' height='200px' :src='`https://picsum.photos/${ cont.photoFilename }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+                        p {{ cont.photoDescription }}
+                      .chat-hour
+                        | {{ cont.contentCreateDate }}
+                        span.fa.fa-check-circle
                     //- li.chat-right
                     //-   .chat-hour
                     //-     | 08:56

@@ -76,8 +76,12 @@ const store = new Vuex.Store({
       return playersRequest.data
     },
     async fetchSession({ commit }) {
-      const player = await axios.get('/api/account/session')
-      commit(mutations.SET_PLAYER, player.data || null)
+      try {
+        const player = await axios.get('/api/account/session')
+        commit(mutations.SET_PLAYER, player.data || null)
+      } catch (e) {
+        commit(mutations.SET_PLAYER, null)
+      }
     },
     async login({ commit }, credentials) {
       try {
@@ -99,23 +103,23 @@ const store = new Vuex.Store({
       return storyRequest.data
     },
     async fetchStories() {
-      const storysRequest = await axios.get('/api/stories')
-      return storysRequest.data
+      try {
+        const storysRequest = await axios.get('/api/stories')
+        return storysRequest.data
+      } catch (e) {
+        console.log(e)
+        return []
+      }
     },
     async createStories({ commit }, credentials) {
       const story = await axios.post('/api/stories', credentials)
       commit(mutations.CREATE_STORY, story.data)
     },
     async goLive({ state, commit }) {
-      socket.emit('go live', state.player._id, () => {
+      socket.emit('go live', state.player._id, status => {
         commit(mutations.SET_LIVE_STREAM, state.player._id)
       })
     },
-    // async goLive({ state, commit }) {
-    //   socket.emit('go live', state.player._id, status => {
-    //     commit(mutations.SET_LIVE_STREAM, state.player._id)
-    //   })
-    // },
     async addLiveStream({ state, commit }, stream) {
       commit(mutations.ADD_LIVE_STREAM, stream)
     },
@@ -133,6 +137,14 @@ const store = new Vuex.Store({
     }
   },
   modules: {}
+})
+
+socket.on('new live stream', player => {
+  store.dispatch('addLiveStream', player)
+})
+
+socket.on('new live stream message', message => {
+  store.commit(mutations.ADD_MESSAGE_TO_LIVE_STREAM, message)
 })
 
 export default async function init() {

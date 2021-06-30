@@ -29,18 +29,14 @@ export default {
               h4.text-white &nbsp;
               ul.list-unstyled
                 li
-                  router-link.text-white(to="/") Home
-                li
-                  router-link.text-white(to="/story") Story
-                li
                   router-link.text-white(to="/about") About
-                li
+                li(v-if="player")
                   router-link.text-white(to="/player-detail") PlyerDetail
-                li
+                li(v-if="!player")
                   router-link.text-white(to="/login") Login
-                li
+                li(v-if="!player")
                   router-link.text-white(to="/register") Register
-                li
+                li(v-if="player")
                   a.text-white(@click="doLogout" href="/") Logout
       .navbar.navbar-dark.bg-dark.shadow-sm
         .container
@@ -51,19 +47,19 @@ export default {
             span.navbar-toggler-icon
     router-view
 
-    footer.text-muted.py-5.bg-dark
+    footer.text-muted.py-4.bg-dark
       .container
-        p.float-end.mb-1
-          a(href='') ^ Back to top
-        p.mb-1
+        p.text-white.float-end.mb-1.blockquote-footer.small
+          a.small.text-white(href='') ^ to top
+        p.text-white.mb-1.small
           | improRPG is &copy; by Robert Karpinski but free to use on &nbsp;
-          a(href='https://github.com/riskieee/improrpg') GitHub
-          | &nbsp;to use under CC
-        p.mb-0
+          a.text-white.small(href='https://github.com/riskieee/improrpg') GitHub
+          | &nbsp;to use under CC0
+        p.text-white.mb-0.small
           | You have another idea and want to get in touch? Visit my homepage:&nbsp;
-          a(href='https://digitalpraxis.de/') digitalpraxis.de
+          a.text-white.small(href='https://digitalpraxis.de/') digitalpraxis.de
           |  or drill deeper as I did in WebDev at&nbsp;
-          a(href='https://www.coyotiv.com/') coyotiv.com
+          a.text-white.small(href='https://www.coyotiv.com/') coyotiv.com
           | .
 
 </template>
@@ -72,15 +68,11 @@ export default {
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
 }
 #app {
   text-align: center;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   background: #eee url('/img/rpgback.jpg') top left / 100% fixed no-repeat;
 }

@@ -11,14 +11,14 @@ export default {
 </script>
 
 <template lang="pug">
-.container-fluid
-  .row
+.container
+  .row-12.text-center
     //- p {{ player }}
-    .col-lg-3.col-sm-6.py-5
+    .col.px-5.mx-5
       .card.hovercard
         .cardheader
         .avatar
-          img(:alt='`${ player.playerName }`' :src='`/img/${ player.playerPhoto || defaultPhoto }`')
+          img(:alt='`${ player.playerName }`' :src='`/img/avatar/${ player.playerPhoto || defaultPhoto }`')
         .info
           .title {{ player.playerName }}
           .desc Preferences ({{ player.playerPreferences.map(pref => pref).join(', ') }})

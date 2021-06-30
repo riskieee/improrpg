@@ -32,7 +32,7 @@ services:
     labels:
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.backend.rule=(Host(`improrpg.localhost`) && PathPrefix(`/api`) || PathPrefix(`/socket`)))'
+      - 'traefik.http.routers.backend.rule=(Host(`improrpg.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/socket`)))'
       - 'traefik.http.routers.backend.entrypoints=web'
     ports:
       - 3000
