@@ -1,0 +1,15 @@
+node_modules
+husky
+.env
+.vscode
+# depending on goal next files could be added to dev containers
+# but should be ignored in production
+.history
+.eslintrc.json
+.prettierignore
+.prettierrc
+__tests__
+coverage
+jest.config.js
+test-template.js
+jest.setup.js
