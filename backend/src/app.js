@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const cors = require('cors') // for deploy cross domain cloud
 const passport = require('passport') // AUTH!
 const Player = require('./models/player') // AUTH!
 
@@ -25,6 +26,16 @@ const accountRouter = require('./routes/account') // AUTH
 // ----------------------------------------------------
 const app = express()
 
+// Setup for deploy cross cloud
+app.use(
+  cors({
+    origin: true,
+    credentials: true
+  })
+)
+
+app.set('trust proxy', 1)
+
 // Livereload setup ONLY FOR BACKEND VIEWS
 // ----------------------------------------------------
 // if (app.get('env') == 'development') {
@@ -40,8 +51,6 @@ const app = express()
 // -----------------------------------------
 app.set('io', socketService)
 
-// view engine setup
-// -----------------------------------------
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
@@ -59,7 +68,9 @@ app.use(
     store: MongoStore.create({ mongoUrl: mongooseConnection._connectionString, stringify: false }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in ms
-      path: '/api'
+      path: '/api',
+      sameSite: process.env.NODE_EV == 'production' ? 'none' : 'strict', // deploy setup
+      secure: process.env.NODE_EV == 'production'
     }
   })
 )

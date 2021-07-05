@@ -1,0 +1,33 @@
+# first part taken from backend .dockerignore
+
+node_modules
+husky
+.env
+.vscode
+# depending on goal next files could be added to dev containers
+# but should be ignored in production
+.history
+
+.DS_Store
+node_modules
+# END first part taken from backend .dockerignore
+
+# part taken from frontend .gitignore
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

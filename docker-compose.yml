@@ -27,7 +27,7 @@ services:
       # - MONGODB_PASSWORD
       # - MONGODB_DATABASE
       - MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
-      - CLOUDMERSIVE_KEY_STRING=f4c660e5-5885-4504-bc72-315948f27267
+      - CLOUDMERSIVE_KEY_STRING=f4c660e5-5885-4504-bc72-315948f27267 # extern API key
       - CHOKIDAR_USEPOLLING=true
     labels:
     labels:
@@ -39,6 +39,7 @@ services:
       - 35729:35729
     volumes:
       - ./backend/src:/app/src
+      # - ./images:/app/images  # missing but to fix?
   mongo:
     image: mongo
     ports:
