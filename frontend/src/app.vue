@@ -37,7 +37,7 @@ export default {
                 li(v-if="!player")
                   router-link.text-white(to="/register") Register
                 li(v-if="player")
-                  button.text-white(@click="doLogout" ) Logout
+                  button.btn.btn-link.text-white(@click="doLogout" ) Logout
       .navbar.navbar-dark.bg-dark.shadow-sm
         .container
           a.navbar-brand.d-flex.align-items-center(href='/')
@@ -65,6 +65,10 @@ export default {
 </template>
 
 <style lang="scss">
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+}
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
