@@ -4,7 +4,8 @@ services:
     image: frontend
     build:
       context: frontend
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
+      # dockerfile: Dockerfile  # production
     environment:
       - PORT=8080
       - CHOKIDAR_USEPOLLING=true
@@ -21,7 +22,8 @@ services:
     image: backend
     build:
       context: backend
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
+      # dockerfile: Dockerfile  # production
     environment:
       # - MONGODB_USERNAME
       # - MONGODB_PASSWORD
