@@ -37,7 +37,7 @@ export default {
                 li(v-if="!player")
                   router-link.text-white(to="/register") Register
                 li(v-if="player")
-                  a.text-white(@click="doLogout" href="/") Logout
+                  button.text-white(@click="doLogout" ) Logout
       .navbar.navbar-dark.bg-dark.shadow-sm
         .container
           a.navbar-brand.d-flex.align-items-center(href='/')
