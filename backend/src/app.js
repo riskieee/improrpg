@@ -30,6 +30,7 @@ const app = express()
 app.use(
   cors({
     origin: true,
+    // origin: '*', // except all Domains
     credentials: true
   })
 )
