@@ -13,7 +13,8 @@
     "lintit": "eslint .",
     "prepare": "cd .. && husky install backend/.husky",
     "debug": "nodemon bin/www DEBUG=improRPG:*",
-    "start": "nodemon bin/www"
+    "dev": "nodemon bin/www",
+    "start": "node bin/www"
   },
   "husky": {
     "hooks": {
@@ -62,6 +63,7 @@
     "eslint-plugin-vue": "^7.9.0",
     "lint-staged": "^11.0.0",
     "livereload": "^0.9.3",
+    "nodemon": "^2.0.9",
     "prettier": "^2.3.0"
   },
   "dependencies": {

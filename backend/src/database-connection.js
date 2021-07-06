@@ -9,9 +9,10 @@ let connectionString = process.env.MONGODB_CONNECTION_STRING
 const username = process.env.MONGODB_USERNAME
 const password = process.env.MONGODB_PASSWORD
 const dbName = process.env.MONGODB_DATABASE
+const atlaspath = process.env.MONGODB_ATLASPATH
 
 if (!connectionString) {
-  connectionString = `mongodb+srv://${username}:${password}@improrpg.rwmyc.mongodb.net/${dbName}?retryWrites=true&w=majority`
+  connectionString = `mongodb+srv://${username}:${password}@${atlaspath}/${dbName}?retryWrites=true&w=majority`
 }
 
 mongoose.set('debug', true) // see all query logs and calls when started as DEBUG=* nodemon
