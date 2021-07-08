@@ -1,6 +1,9 @@
 // Server setup
 const createError = require('http-errors')
 const express = require('express')
+const helmet = require('helmet') // security
+const bodyParser = require('body-parser') // security
+const mongoSanitize = require('express-mongo-sanitize') // security
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -25,10 +28,18 @@ const accountRouter = require('./routes/account') // AUTH
 // App setup
 // ----------------------------------------------------
 const app = express()
+app.use(helmet()) // security
+app.use(bodyParser.urlencoded({ extended: true })) // security
+app.use(bodyParser.json()) // security
 
-// Setup for deploy cross cloud
+// security // breaking
+// app.use(mongoSanitize())
 app.use(
+  // mongoSanitize({
+  //   replaceWith: '_'
+  // }),
   cors({
+    // Setup for deploy cross cloud
     origin: true,
     credentials: true
   })
