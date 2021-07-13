@@ -25,13 +25,12 @@ services:
       dockerfile: dev.Dockerfile
       # dockerfile: Dockerfile  # production
     environment:
-      # - MONGODB_USERNAME
-      # - MONGODB_PASSWORD
-      # - MONGODB_DATABASE
-      - MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg
-      - CLOUDMERSIVE_KEY_STRING=f4c660e5-5885-4504-bc72-315948f27267 # extern API key
+      # - MONGODB_USERNAME=yourUsername
+      # - MONGODB_PASSWORD=yourPassword
+      # - MONGODB_DATABASE=yourdatabase
+      - MONGODB_CONNECTION_STRING=mongodb://mongo/improrpg # local dev build connection
+      - CLOUDMERSIVE_KEY_STRING=yourMongoDBurlIfNotLocal # local dev build key
       - CHOKIDAR_USEPOLLING=true
-    labels:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.backend.rule=(Host(`improrpg.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/socket`)))'
