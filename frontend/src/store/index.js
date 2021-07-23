@@ -64,9 +64,12 @@ const store = new Vuex.Store({
       state.liveStreamMessages.push(message)
     }
   },
+  methods: {},
   actions: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     // counter need a POST
-
     incrementCount({ commit }) {
       commit(mutations.INCREMENT_COUNT)
     },
@@ -114,9 +117,14 @@ const store = new Vuex.Store({
         return []
       }
     },
-    async createStories({ commit }, credentials) {
-      const story = await axios.post('/api/stories', credentials)
-      commit(mutations.CREATE_STORY, story.data)
+    // create new story
+    async createStory(store, story) {
+      return axios.post(`/api/stories`, story)
+    },
+    // add content to story
+    async addContent(story, newContent) {
+      console.log('----- frontend store call addContent: ', store.state)
+      return axios.post(`/api/stories/addContent`, store.player, story, newContent)
     },
     async goLive({ state, commit }) {
       socket.emit('go live', state.player._id, status => {
