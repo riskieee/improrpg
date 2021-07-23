@@ -10,7 +10,7 @@ const Story = require('../models/story')
 const Content = require('../models/content')
 const Report = require('../models/report')
 
-// get homepage
+// indexrouter:  /api/
 router.get('/', async (req, res) => {
   const stories = await Story.find({})
   res.send(stories)
@@ -136,9 +136,9 @@ router.get('/init', async (req, res) => {
   const syfyPhoto = await createContentPhoto('syfy.jpg', playerLisla)
   await playerLisla.addContent(storySyFy, syfyPhoto)
 
-  // console.log(storyFantasy)
-  // console.log(storySyFy)
-  // console.log('--------------------------', playerLuphus)
+  // console.log('-------------------------- /////// ', storyFantasy)
+  // console.log('-------------------------- /////// ', storySyFy)
+  // console.log('-------------------------- /////// ', playerLuphus)
   res.sendStatus(200)
 })
 
