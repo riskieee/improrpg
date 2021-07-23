@@ -6,7 +6,7 @@ const axios = require('axios')
 // app setup
 // const Player = require('../models/player')
 const Stories = require('../models/story')
-// const Content = require('../models/content')
+const Content = require('../models/content')
 
 /* GET users listing. */
 // router.get('/', (req, res) => {
@@ -33,17 +33,43 @@ const Stories = require('../models/story')
 //   res.send(await Stories.find(query))
 // })
 
+// send all stories
 router.get('/', async (req, res) => {
   const stories = await Stories.find({})
   res.send(stories)
 })
 
+// sened story by Id
 router.get('/:storyId', async (req, res) => {
   const story = await Stories.findById(req.params.storyId)
   if (story) res.send(story)
   else res.sendStatus(404)
 })
 
+// create new story
+router.post('/', async (req, res) => {
+  const { storyName, storyTheme, storyCover } = req.body
+  const story = await Stories.create({ storyName, storyTheme, storyCover })
+  if (story) res.send(story)
+  else res.sendStatus(404)
+})
+
+// create story content nodes
+router.post('/addContent', async (req, res) => {
+  const { player, story, contentNodeTxt } = req.body
+  // const story = await Stories.create({ storyName, storyTheme, storyCover })
+  console.log(player, story, contentNodeTxt)
+  // const newContent = await Content.create({
+  //   addingPlayer: player,
+  //   contentNode: contentNodeTxt
+  // })
+  // const newContentNode = await player.addContent(story, newContent)
+
+  if (newContentNode) res.send(newContentNode)
+  else res.sendStatus(404)
+})
+
+//
 router.get('/:storyId/json', async (req, res) => {
   const story = await Stories.findById(req.params.storyId)
   res.send(story)
