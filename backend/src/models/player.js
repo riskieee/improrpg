@@ -18,7 +18,8 @@ const playerSchema = new mongoose.Schema({
   playerPhoto: {
     type: String,
     minlength: 4,
-    maxlength: 50
+    maxlength: 50,
+    default: 'default.png'
   },
   playerPreferences: [
     {
