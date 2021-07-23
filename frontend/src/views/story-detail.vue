@@ -1,22 +1,39 @@
 <script>
 // @ is an alias to /src
 // import StoryCard from '@/components/story-card.vue'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'StoryDetail',
+  computed: {
+    ...mapState(['player'])
+  },
   data() {
     return {
       story: null,
-      defaultText: 'Text is to provide later ...'
+      newStoryText: '',
+      defaultText: 'Text is to provide later ...',
+      backendError: null
     }
   },
   async created() {
     this.story = await this.fetchStory(this.$route.params.id)
-    console.log(this.story)
+    // this.players = await this.fetchPlayers()
   },
   methods: {
-    ...mapActions(['fetchStory'])
+    // ...mapActions(['fetchStory', 'addStoryText']),
+    ...mapActions(['fetchStory', 'addContent']),
+    async submitNewStoryContent(e) {
+      console.log(e)
+      e.preventDefault()
+
+      try {
+        await this.addContent(this.player, this.story, this.newStoryText)
+        this.$route.push('/story/story/:id')
+      } catch (e) {
+        console.log(e, 'Error')
+      }
+    }
   }
 }
 </script>
@@ -86,8 +103,11 @@ div
                     //-   .chat-avatar
                     //-     img(src='/img/avatar/avatar3.png' alt='Retail Admin')
                     //-     .chat-name Luphus
-                  .form-group.mt-3.mb-0
-                    textarea.form-control(rows='3' placeholder='Type your storynotes here...')
+                  form.form-group.mt-3.mb-0(@submit='submitNewStoryContent')
+                    //- textarea.form-control(v-if='player' rows='3' placeholder='Type your storynotes here...')
+                    textarea.form-control(v-model='newStoryText' rows='3' placeholder='Add more story here...')
+                    button.btn.btn-primary.form-control.mt-2( type='submit' value='submitNewStoryContent') Add
+                    div(v-if="backendError") {{ backendError }}
             // Row end
       // Row end
     // Content wrapper end
