@@ -9,6 +9,27 @@ const io = require('socket.io')({
 io.on('connect', socket => {
   socket.emit('connection established')
 
+  // adding new story content
+  socket.on('New StoryContent', content => {
+    console.log(`New StoryContent ${content.contentNode} by ${content.addingPlayer}`)
+    socket.broadcast.emit('StoryContent', content)
+  })
+
+  // live chat on user-detail / profile-page
+  socket.on('new message', (streamId, message) => {
+    socket.to(streamId).emit('new live stream message', message)
+  })
+  socket.on('join stream', streamId => {
+    socket.join(streamId)
+  })
+  socket.on('go live', (userId, cb) => {
+    console.log(`${userId} is going live`)
+
+    socket.broadcast.emit('new live stream', userId)
+    socket.join(userId)
+    cb(true)
+  })
+  // testing and democounter
   // setInterval(() => {
   //   socket.emit('hello world!')
   // }, 2000)
@@ -22,22 +43,6 @@ io.on('connect', socket => {
   // socket.on('another api', cb => {
   //   cb('another api response')
   // })
-
-  socket.on('new message', (streamId, message) => {
-    socket.to(streamId).emit('new live stream message', message)
-  })
-
-  socket.on('join stream', streamId => {
-    socket.join(streamId)
-  })
-
-  socket.on('go live', (userId, cb) => {
-    console.log(`${userId} is going live`)
-
-    socket.broadcast.emit('new live stream', userId)
-    socket.join(userId)
-    cb(true)
-  })
 })
 
 module.exports = io
