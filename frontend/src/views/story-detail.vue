@@ -17,6 +17,7 @@ export default {
     }
   },
   created() {
+    goStoryLive()
     joinStoryStream(storyStream)
   },
   async created() {
