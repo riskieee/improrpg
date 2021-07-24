@@ -6,7 +6,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'StoryDetail',
   computed: {
-    ...mapState(['player'])
+    ...mapState(['player', 'currentLiveStream'])
   },
   data() {
     return {
@@ -16,24 +16,34 @@ export default {
       backendError: null
     }
   },
+  created() {
+    joinStoryStream(storyStream)
+  },
   async created() {
     this.story = await this.fetchStory(this.$route.params.id)
-    // this.players = await this.fetchPlayers()
   },
   methods: {
     // ...mapActions(['fetchStory', 'addStoryText']),
-    ...mapActions(['fetchStory', 'addContent']),
+    ...mapActions(['fetchStory', 'addContent', 'goStoryLive', 'sendContentToLiveStoryStream', 'joinStoryStream']),
     async submitNewStoryContent(e) {
-      console.log(e)
       e.preventDefault()
 
+      this.sendContentToLiveStoryStream(this.newStoryText)
+      // this.newStoryText = ''
+
       try {
-        await this.addContent(this.player, this.story, this.newStoryText)
-        this.$route.push('/story/story/:id')
+        await this.addContent({
+          storyId: this.story._id,
+          text: this.newStoryText
+        })
+        this.$route.push('/stories/:id')
       } catch (e) {
         console.log(e, 'Error')
       }
     }
+  },
+  computed: {
+    ...mapState(['currentLiveStoryStream', 'liveStoryStreams', 'player', 'liveStoryStreamContent'])
   }
 }
 </script>

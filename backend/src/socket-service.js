@@ -10,8 +10,8 @@ io.on('connect', socket => {
   socket.emit('connection established')
 
   // adding new story content
-  socket.on('New StoryContent', content => {
-    console.log(`New StoryContent ${content.contentNode} by ${content.addingPlayer}`)
+  socket.on('NewContent', content => {
+    console.log(`NewContent ${content.contentNode} by ${content.addingPlayer}`)
     socket.broadcast.emit('StoryContent', content)
   })
 
@@ -29,14 +29,31 @@ io.on('connect', socket => {
     socket.join(userId)
     cb(true)
   })
+
+  // live story on story-detail
+  socket.on('new story content', (streamId, content) => {
+    socket.to(streamId).emit('new live story stream contnet', content)
+  })
+  socket.on('join story stream', streamId => {
+    socket.join(streamId)
+  })
+  socket.on('go story live', (userId, cb) => {
+    console.log(`${userId} is going live in story`)
+
+    socket.broadcast.emit('new live story stream', userId)
+    socket.join(userId)
+    cb(true)
+  })
+
   // testing and democounter
   // setInterval(() => {
   //   socket.emit('hello world!')
   // }, 2000)
 
-  // socket.on('new message', (number, cb) => {
-  //   console.log('a new message received with number', number)
-  //   console.log('replying with', number + 1)
+  // socket NumberTest to frontend store
+  // socket.on('test message', (number, cb) => {
+  //   console.log('server recieved test message with number: ', number)
+  //   console.log('server replying test message with: ', number + 1)
   //   cb(number + 1)
   // })
 

@@ -1,7 +1,7 @@
 // express setup
 const express = require('express')
 const router = express.Router()
-const axios = require('axios')
+// const axios = require('axios')
 
 // app setup
 // const Player = require('../models/player')
@@ -56,14 +56,14 @@ router.post('/', async (req, res) => {
 
 // create story content nodes
 router.post('/addContent', async (req, res) => {
-  const { player, story, contentNodeTxt } = req.body
-  // const story = await Stories.create({ storyName, storyTheme, storyCover })
-  console.log(player, story, contentNodeTxt)
-  // const newContent = await Content.create({
-  //   addingPlayer: player,
-  //   contentNode: contentNodeTxt
-  // })
-  // const newContentNode = await player.addContent(story, newContent)
+  const { newContent } = req.body
+  // console.log('BACKEND route addContent: player, story, contentNode: ', player, newContent)
+  const story = await Stories.findById(req.body.storyId)
+  const addNewContent = await Content.create({
+    addingPlayer: req.user, // obj
+    contentNode: newContent // sting
+  })
+  const newContentNode = await req.user.addContent(story, addNewContent)
 
   if (newContentNode) res.send(newContentNode)
   else res.sendStatus(404)
