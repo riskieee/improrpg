@@ -1,7 +1,7 @@
 {
   "short_name": "improRPG",
   "name": "improRPG",
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ccc",
   "description": "improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp",
