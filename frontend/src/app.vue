@@ -78,7 +78,7 @@ body {
   text-align: center;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
-  background: #eee url('/img/rpgback.jpg') top left / 100% fixed no-repeat;
+  background: #eee url('/img/rpgback.jpg') top left / cover fixed no-repeat;
 }
 .bg-dark {
   background: rgb(30, 30, 30);
