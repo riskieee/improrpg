@@ -1,3 +1,5 @@
+const Stories = require('./models/story')
+
 const io = require('socket.io')({
   cors: {
     origin: true,
@@ -31,8 +33,9 @@ io.on('connect', socket => {
   })
 
   // live story on story-detail
-  socket.on('new story content', (streamId, content) => {
-    socket.to(streamId).emit('new live story stream contnet', content)
+  socket.on('new story content', async (streamId, content) => {
+    const story = await Stories.findById(streamId)
+    socket.to(streamId).emit('new live story stream contnet', story)
   })
   socket.on('join story stream', streamId => {
     socket.join(streamId)
@@ -44,22 +47,6 @@ io.on('connect', socket => {
     socket.join(userId)
     cb(true)
   })
-
-  // testing and democounter
-  // setInterval(() => {
-  //   socket.emit('hello world!')
-  // }, 2000)
-
-  // socket NumberTest to frontend store
-  // socket.on('test message', (number, cb) => {
-  //   console.log('server recieved test message with number: ', number)
-  //   console.log('server replying test message with: ', number + 1)
-  //   cb(number + 1)
-  // })
-
-  // socket.on('another api', cb => {
-  //   cb('another api response')
-  // })
 })
 
 module.exports = io
