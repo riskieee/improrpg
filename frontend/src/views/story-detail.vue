@@ -77,7 +77,7 @@ div
                     .input-group
                       input.form-control(placeholder='Search')
                       .input-group-btn
-                        button.btn.btn-info(type='button')
+                        button.btn.btn-danger(type='button')
                           i.fa.fa-search
                   img(width='100%' height='auto' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
                   h6 active Player
@@ -124,10 +124,10 @@ div
                     form.form-group.mt-3.mb-0(@submit='submitNewStoryContent')
                       //- textarea.form-control(v-if='player' rows='3' placeholder='Type your storynotes here...')
                       textarea.form-control(v-model='newStoryText' rows='3' placeholder='Add more story here...')
-                      button.btn.btn-primary.form-control.mt-2( type='submit' value='submitNewStoryContent') Add
+                      button.btn.btn-danger.form-control.mt-2( type='submit' value='submitNewStoryContent') Add
                       div(v-if="backendError") {{ backendError }}
                   div(v-else)
-                    router-link.btn.btn-primary.form-control(to="/login") Login to Join!
+                    router-link.btn.btn-danger.form-control(to="/login") Login to Join!
 
             // Row end
       // Row end
