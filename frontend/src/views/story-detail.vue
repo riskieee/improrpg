@@ -1,58 +1,59 @@
 <script>
 // @ is an alias to /src
-// import StoryCard from '@/components/story-card.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'StoryDetail',
   data() {
     return {
-      story: null,
       newStoryText: '',
       defaultText: 'Text is to provide later ...',
       backendError: null,
-      toggleLeftRight: false
+      activePlayer: []
     }
   },
-  created() {
-    goStoryLive()
-    joinStoryStream(storyStream)
-  },
   async created() {
-    this.story = await this.fetchStory(this.$route.params.id)
+    await this.fetchStory(this.$route.params.id)
+    this.goStoryLive(this.story._id)
   },
   methods: {
-    // ...mapActions(['fetchStory', 'addStoryText']),
     ...mapActions(['fetchStory', 'addContent', 'goStoryLive', 'sendContentToLiveStoryStream', 'joinStoryStream']),
     async submitNewStoryContent(e) {
       e.preventDefault()
-
-      this.sendContentToLiveStoryStream(this.newStoryText)
-      // this.newStoryText = ''
-
       try {
-        await this.addContent({
+        const contentResponse = await this.addContent({
           storyId: this.story._id,
           text: this.newStoryText
         })
-        this.$route.push('/stories/:id')
+        this.sendContentToLiveStoryStream(this.newStoryText)
       } catch (e) {
         console.log(e, 'Error')
       }
-    },
-    toggleClass() {
-      this.toggleLeftRight = !this.toggleLeftRight
     }
   },
   computed: {
-    ...mapState(['player', 'currentLiveStream', 'currentLiveStoryStream', 'liveStoryStreams', 'liveStoryStreamContent'])
+    ...mapState([
+      'story',
+      'player',
+      'currentLiveStream',
+      'currentLiveStoryStream',
+      'liveStoryStreams',
+      'liveStoryStreamContent'
+    ]),
+    filteredActivePlayer: function () {
+      return this.story.contentNodes
+        .map(node => node.addingPlayer)
+        .filter((player, index, playerArr) => {
+          return playerArr.map(mapPlayer => mapPlayer._id).indexOf(player._id) === index
+        })
+    }
   }
 }
 </script>
 
 <template lang="pug">
 div
-  .container(v-if="!story") There is no story yet!
+  .container(v-if="!(story && story._id)") There is no story yet!
   .container(v-else)
 
     // Page header start
@@ -78,14 +79,15 @@ div
                       .input-group-btn
                         button.btn.btn-info(type='button')
                           i.fa.fa-search
+                  img(width='100%' height='auto' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+                  h6 active Player
                   ul.users
-                    img(width='100%' height='auto' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
-                    li.person(v-for="node in story.contentNodes")
+                    li.person(v-for="filteredPlayer in filteredActivePlayer")
                       .user
-                        img(:src='`/img/avatar/${node.addingPlayer.playerPhoto}`' :title='`${node.addingPlayer.playerName }`' :alt='`${node.addingPlayer.playerName }`')
+                        img(:src='`/img/avatar/${filteredPlayer.playerPhoto}`' :title='`${filteredPlayer.playerName}`' :alt='`${filteredPlayer.playerName }`')
                         //- span.status.busy // .offline // .away
                       p.name-time
-                        span.name {{node.addingPlayer.playerName }}
+                        span.name {{filteredPlayer.playerName}}
                       //-   span.time 15/09/2021
               .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
                 .selected-user
@@ -93,9 +95,8 @@ div
                     span.name {{ story.storyName }} &nbsp;
                     span.theme ({{ story.storyTheme.join(', ') }})
                 .chat-container
-                  ul.chat-box.chatContainerScroll(v-for="cont in story.contentNodes")
-                    span(v-html="toggleClass()")
-                    li.chat-left(v-if="toggleLeftRight")
+                  ul.chat-box.chatContainerScroll(v-for="(cont, index) in story.contentNodes")
+                    li.chat-left(v-if="index % 2 == 0")
                       .chat-avatar
                         img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
                         .chat-name {{ cont.addingPlayer.playerName }}
@@ -107,7 +108,7 @@ div
                       .chat-hour
                         | {{ cont.contentCreateDate }}
                         span.fa.fa-check-circle
-                    li.chat-right(v-if="!toggleLeftRight")
+                    li.chat-right(v-else)
                      .chat-hour
                        | {{ cont.contentCreateDate }}
                        span.fa.fa-check-circle
@@ -119,11 +120,15 @@ div
                      .chat-avatar
                        img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
                        .chat-name {{ cont.addingPlayer.playerName }}
-                  form.form-group.mt-3.mb-0(@submit='submitNewStoryContent')
-                    //- textarea.form-control(v-if='player' rows='3' placeholder='Type your storynotes here...')
-                    textarea.form-control(v-model='newStoryText' rows='3' placeholder='Add more story here...')
-                    button.btn.btn-primary.form-control.mt-2( type='submit' value='submitNewStoryContent') Add
-                    div(v-if="backendError") {{ backendError }}
+                  div(v-if='player')
+                    form.form-group.mt-3.mb-0(@submit='submitNewStoryContent')
+                      //- textarea.form-control(v-if='player' rows='3' placeholder='Type your storynotes here...')
+                      textarea.form-control(v-model='newStoryText' rows='3' placeholder='Add more story here...')
+                      button.btn.btn-primary.form-control.mt-2( type='submit' value='submitNewStoryContent') Add
+                      div(v-if="backendError") {{ backendError }}
+                  div(v-else)
+                    router-link.btn.btn-primary.form-control(to="/login") Login to Join!
+
             // Row end
       // Row end
     // Content wrapper end
@@ -137,6 +142,11 @@ div
 .chat-search-box {
   border-radius: 3px 0 0 0;
   padding: 0.75rem 1rem;
+}
+
+.users-container h6 {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  font-weight: bolder;
 }
 
 .chat-search-box .input-group .form-control {
