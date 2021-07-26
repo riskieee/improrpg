@@ -39,7 +39,7 @@ export default {
           a.btn.btn-primary.m-2(href='/register') Register
           span to your Story
     .home
-      img.my-4(alt="Vue logo" src="/img/logo.png")
+      img.img-fluid.my-4(alt="Vue logo" src="/img/logo.png")
     .container(v-if='stories')
       .py-5
         .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
