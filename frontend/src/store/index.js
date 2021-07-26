@@ -33,7 +33,10 @@ const mutations = {
   CREATE_STORY: 'create story',
   SET_LIVE_STREAM: 'set live stream',
   ADD_LIVE_STREAM: 'add live stream',
-  ADD_MESSAGE_TO_LIVE_STREAM: 'add message to live stream'
+  ADD_MESSAGE_TO_LIVE_STREAM: 'add message to live stream',
+  SET_LIVE_STORY_STREAM: 'set live story stream',
+  ADD_LIVE_STORY_STREAM: 'add live story stream',
+  ADD_CONTENT_TO_LIVE_STORY_STREAM: 'add content to live story stream'
 }
 
 const store = new Vuex.Store({
@@ -42,7 +45,11 @@ const store = new Vuex.Store({
     player: null,
     currentLiveStream: null,
     liveStreams: [],
-    liveStreamMessages: []
+    liveStreamMessages: [],
+    story: {},
+    currentLiveStoryStream: null,
+    liveStoryStreams: [],
+    liveStoryStreamContent: []
   },
   mutations: {
     [mutations.INCREMENT_COUNT](state) {
@@ -62,11 +69,23 @@ const store = new Vuex.Store({
     },
     [mutations.ADD_MESSAGE_TO_LIVE_STREAM](state, message) {
       state.liveStreamMessages.push(message)
+    },
+    [mutations.SET_LIVE_STORY_STREAM](state, live) {
+      state.currentLiveStoryStream = live
+    },
+    [mutations.ADD_LIVE_STORY_STREAM](state, stream) {
+      state.liveStoryStreams.push(stream)
+    },
+    [mutations.ADD_CONTENT_TO_LIVE_STORY_STREAM](state, content) {
+      state.story.contentNodes.push(content)
     }
   },
+  methods: {},
   actions: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     // counter need a POST
-
     incrementCount({ commit }) {
       commit(mutations.INCREMENT_COUNT)
     },
@@ -103,6 +122,7 @@ const store = new Vuex.Store({
     },
     async fetchStory(store, id) {
       const storyRequest = await axios.get(`/api/stories/${id}`)
+      store.commit(mutations.CREATE_STORY, storyRequest.data)
       return storyRequest.data
     },
     async fetchStories() {
@@ -114,10 +134,21 @@ const store = new Vuex.Store({
         return []
       }
     },
-    async createStories({ commit }, credentials) {
-      const story = await axios.post('/api/stories', credentials)
-      commit(mutations.CREATE_STORY, story.data)
+    // create new story
+    async createStory(store, story) {
+      return axios.post(`/api/stories`, story)
     },
+    // add content to story
+    async addContent(store, newContent) {
+      const toAddnewContent = {
+        storyId: newContent.storyId,
+        newContent: newContent.text
+      }
+      const contentResponse = await axios.post(`/api/stories/addContent`, toAddnewContent)
+      store.commit(mutations.CREATE_STORY, contentResponse.data)
+      return contentResponse.data
+    },
+    // PLAYER CHAT STREAM
     async goLive({ state, commit }) {
       socket.emit('go live', state.player._id, status => {
         commit(mutations.SET_LIVE_STREAM, state.player._id)
@@ -137,6 +168,27 @@ const store = new Vuex.Store({
     async joinStream({ state, commit }, stream) {
       socket.emit('join stream', stream)
       commit(mutations.SET_LIVE_STREAM, stream)
+    },
+    // STORY CONTENT STREAM
+    async goStoryLive({ state, commit }, storyId) {
+      socket.emit('go story live', storyId, status => {
+        commit(mutations.SET_LIVE_STORY_STREAM, storyId)
+      })
+    },
+    async addLiveStoryStream({ state, commit }, stream) {
+      commit(mutations.ADD_LIVE_STORY_STREAM, stream)
+    },
+    async sendContentToLiveStoryStream({ state, commit }, body) {
+      const content = {
+        body,
+        author: state.player.playerName
+      }
+      // commit(mutations.ADD_CONTENT_TO_LIVE_STORY_STREAM, content)
+      socket.emit('new story content', state.currentLiveStoryStream, content)
+    },
+    async joinStoryStream({ state, commit }, stream) {
+      socket.emit('join story stream', stream)
+      commit(mutations.SET_LIVE_STORY_STREAM, stream)
     }
   },
   modules: {}
@@ -148,6 +200,14 @@ socket.on('new live stream', player => {
 
 socket.on('new live stream message', message => {
   store.commit(mutations.ADD_MESSAGE_TO_LIVE_STREAM, message)
+})
+
+socket.on('new live content stream', player => {
+  store.dispatch('addLiveStoryStream', player)
+})
+
+socket.on('new live story stream contnet', content => {
+  store.commit(mutations.CREATE_STORY, content)
 })
 
 export default async function init() {

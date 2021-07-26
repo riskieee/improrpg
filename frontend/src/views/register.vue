@@ -8,6 +8,7 @@ export default {
       playerName: '',
       email: '',
       password: '',
+      playerPhoto: '',
       backendError: null
     }
   },
@@ -44,6 +45,9 @@ export default {
           .col-12
             label(for="playerName") Your Name or Account Callsign:&nbsp;
             input.form-control(v-model="playerName" id="playerName" type="text" placeholder="Your name" required)
+          .col-12
+            label(for="playerPhoto") Avatar Image:&nbsp;
+            input.form-control(v-model="playerPhoto" id="playerPhoto" type="text" placeholder="default.png ... avatar1-9.png")
           .col-12
             label(for="email") Email for Login:&nbsp;
             input.form-control(v-model="email" id="email" type="email" placeholder="Your email" required)

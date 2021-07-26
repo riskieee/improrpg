@@ -31,7 +31,7 @@ export default {
                 li
                   router-link.text-white(to="/about") About
                 li(v-if="player")
-                  router-link.text-white(to="/player-detail") PlyerDetail
+                  router-link.text-white(to="/player-detail") Profile
                 li(v-if="!player")
                   router-link.text-white(to="/login") Login
                 li(v-if="!player")
@@ -50,9 +50,9 @@ export default {
     footer.text-muted.py-4.bg-dark
       .container
         p.text-white.float-end.mb-1.blockquote-footer.small
-          a.small.text-white(href='') ^ to top
+          //- a.small.text-white( href='#top') ^ to top
         p.text-white.mb-1.small
-          | improRPG is &copy; by Robert Karpinski but free to use on &nbsp;
+          | improRPG by riskieee under MIT free to use on &nbsp;
           a.text-white.small(href='https://github.com/riskieee/improrpg') GitHub
           | &nbsp;to use under CC0
         p.text-white.mb-0.small
@@ -78,7 +78,7 @@ body {
   text-align: center;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
-  background: #eee url('/img/rpgback.jpg') top left / 100% fixed no-repeat;
+  background: #eee url('/img/rpgback.jpg') top left / cover fixed no-repeat;
 }
 .bg-dark {
   background: rgb(30, 30, 30);

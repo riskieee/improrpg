@@ -1,7 +1,7 @@
 <script>
 // @ is an alias to /src
 import StoryCard from '@/components/story-card.vue'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -17,6 +17,9 @@ export default {
   },
   methods: {
     ...mapActions(['fetchStories'])
+  },
+  computed: {
+    ...mapState(['player'])
   }
 }
 </script>
@@ -28,16 +31,20 @@ export default {
         h1.fw-light improRPG
         p.lead.text-muted
           | improRPG is THE live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
-        p
-          a.btn.btn-primary.m-2(href='/story-detail') Join
-          a.btn.btn-secondary.m-2(href='/api/init') INIT mongoDB
-
+        p(v-if='player')
+          a.btn.btn-primary.m-2(href='/new-story') Create your Story
+        p(v-if='!player')
+          a.btn.btn-primary.m-2(href='/login') Login
+          span or
+          a.btn.btn-primary.m-2(href='/register') Register
+          span to your Story
     .home
-      img.my-4(alt="Vue logo" src="/img/logo.png")
-    .container
+      img.img-fluid.my-4(alt="Vue logo" src="/img/logo.png")
+    .container(v-if='stories')
       .py-5
         .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
           story-card(v-for="story in stories" :key='story._id' :story='story' )
+    a.btn.btn-secondary.m-2(v-if='stories.lenght' href='/api/init') (INIT mongo db)
 
 </template>
 

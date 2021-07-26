@@ -1,29 +1,59 @@
 <script>
 // @ is an alias to /src
-// import StoryCard from '@/components/story-card.vue'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'StoryDetail',
   data() {
     return {
-      story: null,
-      defaultText: 'Text is to provide later ...'
+      newStoryText: '',
+      defaultText: 'Text is to provide later ...',
+      backendError: null,
+      activePlayer: []
     }
   },
   async created() {
-    this.story = await this.fetchStory(this.$route.params.id)
-    console.log(this.story)
+    await this.fetchStory(this.$route.params.id)
+    this.goStoryLive(this.story._id)
   },
   methods: {
-    ...mapActions(['fetchStory'])
+    ...mapActions(['fetchStory', 'addContent', 'goStoryLive', 'sendContentToLiveStoryStream', 'joinStoryStream']),
+    async submitNewStoryContent(e) {
+      e.preventDefault()
+      try {
+        const contentResponse = await this.addContent({
+          storyId: this.story._id,
+          text: this.newStoryText
+        })
+        this.sendContentToLiveStoryStream(this.newStoryText)
+      } catch (e) {
+        console.log(e, 'Error')
+      }
+    }
+  },
+  computed: {
+    ...mapState([
+      'story',
+      'player',
+      'currentLiveStream',
+      'currentLiveStoryStream',
+      'liveStoryStreams',
+      'liveStoryStreamContent'
+    ]),
+    filteredActivePlayer: function () {
+      return this.story.contentNodes
+        .map(node => node.addingPlayer)
+        .filter((player, index, playerArr) => {
+          return playerArr.map(mapPlayer => mapPlayer._id).indexOf(player._id) === index
+        })
+    }
   }
 }
 </script>
 
 <template lang="pug">
 div
-  .container(v-if="!story") There is no story yet!
+  .container(v-if="!(story && story._id)") There is no story yet!
   .container(v-else)
 
     // Page header start
@@ -49,14 +79,15 @@ div
                       .input-group-btn
                         button.btn.btn-info(type='button')
                           i.fa.fa-search
+                  img(width='100%' height='auto' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+                  h6 active Player
                   ul.users
-                    img(width='100%' height='auto' :src='`https://picsum.photos/seed/${ story.storyCover }/300/300`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
-                    li.person(v-for="node in story.contentNodes")
+                    li.person(v-for="filteredPlayer in filteredActivePlayer")
                       .user
-                        img(:src='`/img/avatar/${node.addingPlayer.playerPhoto}`' :title='`${node.addingPlayer.playerName }`' :alt='`${node.addingPlayer.playerName }`')
+                        img(:src='`/img/avatar/${filteredPlayer.playerPhoto}`' :title='`${filteredPlayer.playerName}`' :alt='`${filteredPlayer.playerName }`')
                         //- span.status.busy // .offline // .away
                       p.name-time
-                        span.name {{node.addingPlayer.playerName }}
+                        span.name {{filteredPlayer.playerName}}
                       //-   span.time 15/09/2021
               .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
                 .selected-user
@@ -64,8 +95,8 @@ div
                     span.name {{ story.storyName }} &nbsp;
                     span.theme ({{ story.storyTheme.join(', ') }})
                 .chat-container
-                  ul.chat-box.chatContainerScroll
-                    li.chat-left(v-for="cont in story.contentNodes")
+                  ul.chat-box.chatContainerScroll(v-for="(cont, index) in story.contentNodes")
+                    li.chat-left(v-if="index % 2 == 0")
                       .chat-avatar
                         img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
                         .chat-name {{ cont.addingPlayer.playerName }}
@@ -77,17 +108,27 @@ div
                       .chat-hour
                         | {{ cont.contentCreateDate }}
                         span.fa.fa-check-circle
-                    //- li.chat-right
-                    //-   .chat-hour
-                    //-     | 08:56
-                    //-     span.fa.fa-check-circle
-                    //-   .chat-text
-                    //-     | Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.
-                    //-   .chat-avatar
-                    //-     img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                    //-     .chat-name Luphus
-                  .form-group.mt-3.mb-0
-                    textarea.form-control(rows='3' placeholder='Type your storynotes here...')
+                    li.chat-right(v-else)
+                     .chat-hour
+                       | {{ cont.contentCreateDate }}
+                       span.fa.fa-check-circle
+                     .chat-text(v-if="cont.contentNode")
+                       | {{ cont.contentNode }}
+                     .chat-text(v-else)
+                       img(width='100%' height='200px' :src='`https://picsum.photos/${ cont.photoFilename }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+                       p {{ cont.photoDescription }}
+                     .chat-avatar
+                       img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
+                       .chat-name {{ cont.addingPlayer.playerName }}
+                  div(v-if='player')
+                    form.form-group.mt-3.mb-0(@submit='submitNewStoryContent')
+                      //- textarea.form-control(v-if='player' rows='3' placeholder='Type your storynotes here...')
+                      textarea.form-control(v-model='newStoryText' rows='3' placeholder='Add more story here...')
+                      button.btn.btn-primary.form-control.mt-2( type='submit' value='submitNewStoryContent') Add
+                      div(v-if="backendError") {{ backendError }}
+                  div(v-else)
+                    router-link.btn.btn-primary.form-control(to="/login") Login to Join!
+
             // Row end
       // Row end
     // Content wrapper end
@@ -101,6 +142,11 @@ div
 .chat-search-box {
   border-radius: 3px 0 0 0;
   padding: 0.75rem 1rem;
+}
+
+.users-container h6 {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  font-weight: bolder;
 }
 
 .chat-search-box .input-group .form-control {
@@ -158,12 +204,12 @@ div
 
 .users .person:hover {
   background-color: #ffffff; /* Fallback Color */
-  background-image: linear-gradient(right, #e9eff5, #ffffff);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 1));
 }
 
 .users .person.active-user {
   background-color: #ffffff; /* Fallback Color */
-  background-image: linear-gradient(right, #f7f9fb, #ffffff);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
 }
 
 .users .person:last-child {
