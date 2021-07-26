@@ -26,16 +26,21 @@ export default {
               p.text-white
                 | improRPG is a live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
             .col-sm-4.offset-md-1.py-4
-              h4.text-white &nbsp;
               ul.list-unstyled
                 li
-                  router-link.text-white(to="/about") About
+                  router-link.text-white(to="/") Home
+                li(v-if="player")
+                  router-link.text-white(to="/new-story") New Story
+                li(v-if="player")
+                  router-link.text-white(to="/new-story") New Story
                 li(v-if="player")
                   router-link.text-white(to="/player-detail") Profile
                 li(v-if="!player")
                   router-link.text-white(to="/login") Login
                 li(v-if="!player")
                   router-link.text-white(to="/register") Register
+                li
+                  router-link.text-white(to="/about") About
                 li(v-if="player")
                   button.btn.btn-link.text-white(@click="doLogout" ) Logout
       .navbar.navbar-dark.bg-dark.shadow-sm
