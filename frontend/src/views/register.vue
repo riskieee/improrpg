@@ -59,14 +59,14 @@ export default {
           //-     input#rememberMe.form-check-input(type='checkbox')
           //-     label.form-check-label(for='rememberMe')  Remember me
           .col-12
-            button.btn.btn-primary.form-control(type="submit" value="Register") Register
+            button.btn.btn-danger.form-control(type="submit" value="Register") Register
           .col-12
             div(v-if="backendError") {{ backendError }}
         hr.mt-4
         .col-12
           p.text-center.mb-0
             p.mb-0.pb-0 Already have an account?&nbsp;
-            router-link.mt-0.pt-0(to="/login") Please Log in!
+            router-link.link-danger.mt-0.pt-0(to="/login") Please Log in!
 
 </template>
 <style lang="scss" scoped></style>

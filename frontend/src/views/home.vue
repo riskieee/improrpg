@@ -32,11 +32,11 @@ export default {
         p.lead.text-muted
           | improRPG is THE live IMPROvisied multiplayer text based Role Play Game adventure story notebook sideapp
         p(v-if='player')
-          a.btn.btn-primary.m-2(href='/new-story') Create your Story
+          router-link.btn.btn-danger.m-2(to='/new-story') Create your Story
         p(v-if='!player')
-          a.btn.btn-primary.m-2(href='/login') Login
+          a.btn.btn-danger.m-2(href='/login') Login
           span or
-          a.btn.btn-primary.m-2(href='/register') Register
+          a.btn.btn-danger.m-2(href='/register') Register
           span to your Story
     .home
       img.img-fluid.my-4(alt="Vue logo" src="/img/logo.png")
