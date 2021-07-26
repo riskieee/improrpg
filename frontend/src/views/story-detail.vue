@@ -5,15 +5,13 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'StoryDetail',
-  computed: {
-    ...mapState(['player', 'currentLiveStream'])
-  },
   data() {
     return {
       story: null,
       newStoryText: '',
       defaultText: 'Text is to provide later ...',
-      backendError: null
+      backendError: null,
+      toggleLeftRight: false
     }
   },
   created() {
@@ -41,10 +39,13 @@ export default {
       } catch (e) {
         console.log(e, 'Error')
       }
+    },
+    toggleClass() {
+      this.toggleLeftRight = !this.toggleLeftRight
     }
   },
   computed: {
-    ...mapState(['currentLiveStoryStream', 'liveStoryStreams', 'player', 'liveStoryStreamContent'])
+    ...mapState(['player', 'currentLiveStream', 'currentLiveStoryStream', 'liveStoryStreams', 'liveStoryStreamContent'])
   }
 }
 </script>
@@ -92,8 +93,9 @@ div
                     span.name {{ story.storyName }} &nbsp;
                     span.theme ({{ story.storyTheme.join(', ') }})
                 .chat-container
-                  ul.chat-box.chatContainerScroll
-                    li.chat-left(v-for="cont in story.contentNodes")
+                  ul.chat-box.chatContainerScroll(v-for="cont in story.contentNodes")
+                    span(v-html="toggleClass()")
+                    li.chat-left(v-if="toggleLeftRight")
                       .chat-avatar
                         img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
                         .chat-name {{ cont.addingPlayer.playerName }}
@@ -105,15 +107,18 @@ div
                       .chat-hour
                         | {{ cont.contentCreateDate }}
                         span.fa.fa-check-circle
-                    //- li.chat-right
-                    //-   .chat-hour
-                    //-     | 08:56
-                    //-     span.fa.fa-check-circle
-                    //-   .chat-text
-                    //-     | Todays path is relaxed and leads along the forest.You make good progress.You come to a crossroad and have to choose between several paths.
-                    //-   .chat-avatar
-                    //-     img(src='/img/avatar/avatar3.png' alt='Retail Admin')
-                    //-     .chat-name Luphus
+                    li.chat-right(v-if="!toggleLeftRight")
+                     .chat-hour
+                       | {{ cont.contentCreateDate }}
+                       span.fa.fa-check-circle
+                     .chat-text(v-if="cont.contentNode")
+                       | {{ cont.contentNode }}
+                     .chat-text(v-else)
+                       img(width='100%' height='200px' :src='`https://picsum.photos/${ cont.photoFilename }`' alt='Storycover' aria-label='Storycover' preserveaspectratio='xMidYMid slice' focusable='false')
+                       p {{ cont.photoDescription }}
+                     .chat-avatar
+                       img(:src='`/img/avatar/${cont.addingPlayer.playerPhoto}`' :title='`${ cont.addingPlayer.playerName }`' :alt='`${ cont.addingPlayer.playerName }`')
+                       .chat-name {{ cont.addingPlayer.playerName }}
                   form.form-group.mt-3.mb-0(@submit='submitNewStoryContent')
                     //- textarea.form-control(v-if='player' rows='3' placeholder='Type your storynotes here...')
                     textarea.form-control(v-model='newStoryText' rows='3' placeholder='Add more story here...')
@@ -189,12 +194,12 @@ div
 
 .users .person:hover {
   background-color: #ffffff; /* Fallback Color */
-  background-image: linear-gradient(right, #e9eff5, #ffffff);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 1));
 }
 
 .users .person.active-user {
   background-color: #ffffff; /* Fallback Color */
-  background-image: linear-gradient(right, #f7f9fb, #ffffff);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
 }
 
 .users .person:last-child {
