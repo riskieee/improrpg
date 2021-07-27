@@ -26,6 +26,7 @@ export default {
           text: this.newStoryText
         })
         this.sendContentToLiveStoryStream(this.newStoryText)
+        this.newStoryText = ''
       } catch (e) {
         console.log(e, 'Error')
       }
