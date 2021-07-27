@@ -32,8 +32,6 @@ export default {
                 li(v-if="player")
                   router-link.text-white(to="/new-story") New Story
                 li(v-if="player")
-                  router-link.text-white(to="/new-story") New Story
-                li(v-if="player")
                   router-link.text-white(to="/player-detail") Profile
                 li(v-if="!player")
                   router-link.text-white(to="/login") Login

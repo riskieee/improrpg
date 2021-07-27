@@ -1,8 +1,8 @@
 # ImproRPG
 
-is a live **IMPRO\*\***visied multiplayer text based **R**ole **P**lay **G**ame adventure story notebook side app
+is a live **IMPRO**visied multiplayer text based **R**ole **P**lay **G**ame adventure story notebook side app
 
-So use it while an online live role playing session for taking notes. So you can easy remember what happened last time and have a nice reminder for your next session.
+Use it while an online live role playing session for taking notes. So you can easy remember what happened last time and have a nice reminder for your next session.
 
 ## DEMO
 
@@ -49,7 +49,6 @@ Start notepad as admin and add the following line to your hosts file
 
 This code is under https://www.gnu.org/licenses/gpl-3.0
 
-```
 MIT LICENSE
 Copyright (c) 2021 riskieee
 
@@ -58,4 +57,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
