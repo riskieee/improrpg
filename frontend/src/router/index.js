@@ -37,12 +37,8 @@ export default function init(store) {
       },
       {
         path: '/new-story',
-        name: 'newstory',
-        component: NewStory,
-        beforeEnter(to, from, next) {
-          if (store.state.story) return next('/story-detail')
-          return next()
-        }
+        name: 'newStory',
+        component: () => import(/* webpackChunkName: "new-story" */ '../views/new-story.vue')
       },
       {
         path: '/register',
